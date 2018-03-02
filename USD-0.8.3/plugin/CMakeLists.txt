@@ -1,8 +1,3 @@
-set(DIRS
-    ar
-)
+add_subdirectory(ar)
 
-foreach(d ${DIRS})
-    add_subdirectory(${d})
-endforeach()
-
+install(FILES plugInfo.json DESTINATION ./plugin/usd/)
