@@ -51,8 +51,10 @@ include(Public)
 
 #pxr_toplevel_prologue()
 
-#add_subdirectory(extras)
 add_subdirectory(plugin)
+include_directories(external)
+
+
 
 function(_addIfExists pkg pkgCmakeLists)
     if (EXISTS ${pkgCmakeLists})

@@ -3,6 +3,7 @@ set(PXR_PACKAGE alaResolver)
 
 link_directories($ENV{REZ_USD_ROOT}/lib $ENV{REZ_TBB_ROOT}/lib/intel64/gcc4.4/)
 
+
 pxr_plugin(${PXR_PACKAGE}
     LIBRARIES
         arch
@@ -10,6 +11,7 @@ pxr_plugin(${PXR_PACKAGE}
         plug
         vt
         ar
+        /mnt/ala/software/ext_packages/libzmq/4.2.3/lib/libzmq.so
         ${Boost_PYTHON_LIBRARY}
 
     INCLUDE_DIRS
@@ -21,6 +23,7 @@ pxr_plugin(${PXR_PACKAGE}
         alaResolver.h
 
     CPPFILES
+        zmqClient.cpp
         alaResolver.cpp
 
     RESOURCE_FILES
@@ -28,5 +31,5 @@ pxr_plugin(${PXR_PACKAGE}
 )
 
 
-
+#$ENV{REZ_LIBZMQ_ROOT}
 

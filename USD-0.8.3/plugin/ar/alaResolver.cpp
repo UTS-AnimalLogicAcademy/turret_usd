@@ -17,28 +17,31 @@
 #include <tbb/concurrent_hash_map.h>
 #include <iostream>
 
+
+#include "zmqClient.h"
+
 PXR_NAMESPACE_OPEN_SCOPE
+
+namespace {
+    usd_zmq::zmqClient g_zmq;
+}
 
 AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
 
-static bool
-_IsFileRelative(const std::string& path) {
-    return path.find("./") == 0 || path.find("../") == 0;
-}
 
-static TfStaticData<std::vector<std::string>> _SearchPath;
+/*static TfStaticData<std::vector<std::string>> _SearchPath;
 
 struct AlaResolver::_Cache
 {
     using _PathToResolvedPathMap = 
         tbb::concurrent_hash_map<std::string, std::string>;
     _PathToResolvedPathMap _pathToResolvedPathMap;
-};
+};*/
 
-AlaResolver::AlaResolver()
+AlaResolver::AlaResolver() : ArDefaultResolver()
 {
   
-    std::cout << "AlaResolver constructor" << std::endl;
+    /*std::cout << "AlaResolver constructor" << "\n";
 
     std::vector<std::string> searchPath = *_SearchPath;
 
@@ -66,39 +69,22 @@ AlaResolver::AlaResolver()
         }
 
         _searchPath.push_back(absPath);
-    }
+    }*/
 }
 
 AlaResolver::~AlaResolver()
 {
+    
 }
 
-void
+/*void
 AlaResolver::SetDefaultSearchPath(
     const std::vector<std::string>& searchPath)
 {
     *_SearchPath = searchPath;
-}
+}*/
 
-void
-AlaResolver::ConfigureResolverForAsset(const std::string& path)
-{
-    // no configuration takes place in search path resolver
-}
-
-bool
-AlaResolver::IsRelativePath(const std::string& path)
-{
-    return (!path.empty() && TfIsRelativePath(path));
-}
-
-bool
-AlaResolver::IsRepositoryPath(const std::string& path)
-{
-    return false;
-}
-
-std::string
+/*std::string
 AlaResolver::AnchorRelativePath(
     const std::string& anchorPath, 
     const std::string& path)
@@ -119,33 +105,10 @@ AlaResolver::AnchorRelativePath(
     const std::string anchoredPath = TfStringCatPaths(
         TfStringGetBeforeSuffix(forwardPath, '/'), path);
     return TfNormPath(anchoredPath);
-}
+}*/
 
-bool
-AlaResolver::IsSearchPath(const std::string& path)
-{
-    return IsRelativePath(path) && !_IsFileRelative(path);
-}
 
-std::string
-AlaResolver::GetExtension(const std::string& path)
-{
-    return TfGetExtension(path);
-}
-
-std::string
-AlaResolver::ComputeNormalizedPath(const std::string& path)
-{
-    return TfNormPath(path);
-}
-
-std::string
-AlaResolver::ComputeRepositoryPath(const std::string& path)
-{
-    return std::string();
-}
-
-static std::string
+/*static std::string
 _Resolve(
     const std::string& anchorPath,
     const std::string& path)
@@ -192,46 +155,29 @@ AlaResolver::_ResolveNoCache(const std::string& path)
                     return resolvedPath;
                 }
             }
-        }
+        }AR_DEFINE_RESOLVER
 
         return std::string();
     }
 
     return _Resolve(std::string(), path);
-}
+}*/
 
 std::string
 AlaResolver::Resolve(const std::string& path)
 {
-    return ResolveWithAssetInfo(path, /* assetInfo = */ nullptr);
+    return AlaResolver::ResolveWithAssetInfo(path, /* assetInfo = */ nullptr);
 }
 
 std::string
-AlaResolver::ResolveWithAssetInfo(
-    const std::string& path, 
-    ArAssetInfo* assetInfo)
-{
-    if (path.empty()) {
-        return path;
+AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInfo) {
+    if(g_zmq.matches_schema(path)) {
+        return g_zmq.resolve_name(path);
+    } else {
+        return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
     }
-
-    if (_CachePtr currentCache = _GetCurrentCache()) {
-        _Cache::_PathToResolvedPathMap::accessor accessor;
-        if (currentCache->_pathToResolvedPathMap.insert(
-                accessor, std::make_pair(path, std::string()))) {
-            accessor->second = _ResolveNoCache(path);
-        }
-        return accessor->second;
-    }
-
-    return _ResolveNoCache(path);
 }
 
-std::string
-AlaResolver::ComputeLocalPath(const std::string& path)
-{
-    return path.empty() ? path : TfAbsPath(path);
-}
 
 void
 AlaResolver::UpdateAssetInfo(
@@ -240,11 +186,7 @@ AlaResolver::UpdateAssetInfo(
     const std::string& fileVersion,
     ArAssetInfo* resolveInfo)
 {
-    if (resolveInfo) {
-        if (!fileVersion.empty()) {
-            resolveInfo->version = fileVersion;
-        }
-    }
+    ArDefaultResolver::UpdateAssetInfo(identifier, filePath, fileVersion, resolveInfo);
 }
 
 VtValue
@@ -252,14 +194,7 @@ AlaResolver::GetModificationTimestamp(
     const std::string& path,
     const std::string& resolvedPath)
 {
-    // Since the default resolver always resolves paths to local
-    // paths, we can just look at the mtime of the file indicated
-    // by resolvedPath.
-    double time;
-    if (ArchGetModificationTime(resolvedPath.c_str(), &time)) {
-        return VtValue(time);
-    }
-    return VtValue();
+    return ArDefaultResolver::GetModificationTimestamp(path, resolvedPath);
 }
 
 bool 
@@ -267,119 +202,40 @@ AlaResolver::FetchToLocalResolvedPath(
     const std::string& path,
     const std::string& resolvedPath)
 {
-    // AlaResolver always resolves paths to a file on the
-    // local filesystem. Because of this, we know the asset specified 
-    // by the given path already exists on the filesystem at 
-    // resolvedPath, so no further data fetching is needed.
-    return true;
-}
-
-bool
-AlaResolver::CanWriteLayerToPath(
-    const std::string& path,
-    std::string* whyNot)
-{
-    return true;
-}
-
-bool
-AlaResolver::CanCreateNewLayerWithIdentifier(
-    const std::string& identifier, 
-    std::string* whyNot)
-{
-    return true;
-}
-
-ArResolverContext 
-AlaResolver::CreateDefaultContext()
-{
-    return ArResolverContext();
-}
-
-ArResolverContext 
-AlaResolver::CreateDefaultContextForAsset(
-    const std::string& filePath)
-{
-    return ArResolverContext();
-}
-
-ArResolverContext
-AlaResolver::CreateDefaultContextForDirectory(
-    const std::string& fileDirectory)
-{
-    return ArResolverContext();
-}
-
-void 
-AlaResolver::RefreshContext(const ArResolverContext& context)
-{
-}
-
-ArResolverContext
-AlaResolver::GetCurrentContext()
-{
-    return ArResolverContext();
-}
-
-void 
-AlaResolver::_BeginCacheScope(
-    VtValue* cacheScopeData)
-{
-    // cacheScopeData is held by ArResolverScopedCache instances
-    // but is only populated by this function, so we know it must 
-    // be empty (when constructing a regular ArResolverScopedCache)
-    // or holding on to a _CachePtr (when constructing an 
-    // ArResolverScopedCache that shares data with another one).
-    TF_VERIFY(cacheScopeData &&
-              (cacheScopeData->IsEmpty() ||
-               cacheScopeData->IsHolding<_CachePtr>()));
-
-    _CachePtrStack& cacheStack = _threadCacheStack.local();
-
-    if (cacheScopeData->IsHolding<_CachePtr>()) {
-        cacheStack.push_back(cacheScopeData->UncheckedGet<_CachePtr>());
-    }
-    else {
-        if (cacheStack.empty()) {
-            cacheStack.push_back(std::make_shared<_Cache>());
-        }
-        else {
-            cacheStack.push_back(cacheStack.back());
-        }
-    }
-
-    *cacheScopeData = cacheStack.back();
-}
-
-void 
-AlaResolver::_EndCacheScope(
-    VtValue* cacheScopeData)
-{
-    _CachePtrStack& cacheStack = _threadCacheStack.local();
-    if (TF_VERIFY(!cacheStack.empty())) {
-        cacheStack.pop_back();
+    //std::cout << "Path: " << path << "\n\n";
+    //std::cout << "Resolved Path: " << resolvedPath << "\n\n";
+    if(g_zmq.matches_schema(path)) {
+        std::cout << "Fetching local\n";
+        return true;
+    } else {
+        return true;
     }
 }
 
-AlaResolver::_CachePtr 
+
+/*AlaResolver::_CachePtr 
 AlaResolver::_GetCurrentCache()
 {
     _CachePtrStack& cacheStack = _threadCacheStack.local();
     return (cacheStack.empty() ? _CachePtr() : cacheStack.back());
-}
+}*/
 
-void 
-AlaResolver::_BindContext(
-    const ArResolverContext& context,
-    VtValue* bindingData)
-{
-}
+std::string
+AlaResolver::GetExtension(const std::string& path)
+{  
+    /*std::size_t found = path.find("tank");*/
 
-void 
-AlaResolver::_UnbindContext(
-    const ArResolverContext& context,
-    VtValue* bindingData)
-{
+    std::cout << "Getting extension for: " << path << "\n\n";
+
+    if(g_zmq.matches_schema(path)) {
+        std::cout << "Schema extension!\n\n";
+        std::cout << "Result usd" << "\n";
+        
+        return "usd";
+    }
+    std::string r =  ArDefaultResolver::GetExtension(path);
+    std::cout << "Result " << r << "\n";
+    return r;
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE

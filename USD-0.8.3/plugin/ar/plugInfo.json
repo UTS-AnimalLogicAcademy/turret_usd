@@ -4,8 +4,8 @@
             "Info": {
                 "Types": {
                     "AlaResolver": {
-			"bases": [ "ArResolver" ]
-		    }
+                        "bases": [ "ArResolver" ]
+                        }
                 }
             },
             "LibraryPath": "@PLUG_INFO_LIBRARY_PATH@", 
