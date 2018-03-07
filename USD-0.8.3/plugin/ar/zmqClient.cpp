@@ -1,37 +1,67 @@
 #include "zmqClient.h"
 
 #include <iostream>
+#include <map>
+#include <ctime>
+
 #include "../../external/zmq.hpp"
 
 namespace {
+
+    struct Cache {
+        std::string resolved_path;
+        std::time_t timestamp;
+    };
+
+    //<Tank_Query, Cache_Result>
+    std::map<std::string, Cache> cached_queries;
+
     std::string parse_path(const std::string& a_path)
     {
+        // Search for cached result
+        const auto cached_result = cached_queries.find(a_path);
+
+        if (cached_result != cached_queries.end()) {
+            //std::cout << "Current time: " << std::time(0) << "\n";
+            //std::cout << "Cache time: " << cached_result->second.timestamp << "\n";
+            // If cache is still fresh
+            //if(std::time(0) - cached_result->second.timestamp <= usd_zmq::ZMQ_TIMEOUT)
+                return cached_result->second.resolved_path;
+        }
+
+        // Create zmq connection
         zmq::context_t context(1);
         zmq::socket_t socket(context, ZMQ_REQ);
 
         std::cout << "Connecting to local zmq server..." << "\n";
 
-        socket.connect("tcp://localhost:5555");
+        socket.connect("tcp://" + std::string(usd_zmq::ZMQ_SERVER) + ":" + std::string(usd_zmq::ZMQ_PORT));
 
-        std::string req = a_path;
+        
+        // Create zmq request
+        zmq::message_t request(a_path.length());
 
-        zmq::message_t request(req.length());
+        memcpy(request.data(), a_path.c_str(), a_path.length());
 
-        memcpy(request.data(), req.c_str(), req.length());
+        //std::cout << "Sending request: " << a_path << "\n";
 
-        std::cout << "Sending request: " << req << "\n";
-
+        // Send zmq request
         socket.send(request);
 
 
-        // Get the reply
-
+        // Wait for the reply
         zmq::message_t reply;
         socket.recv(&reply);
 
+        // Store the reply
         std::string realPath = std::string((char *)reply.data());
 
-        std::cout << "Received response: " << realPath << "\n\n\n";
+        // Cache reply
+        Cache cache = {realPath, std::time(0)};
+
+        cached_queries.insert(std::make_pair(a_path, cache));
+
+        //std::cout << "Received response: " << realPath << "\n\n\n";
 
         return realPath;
     }

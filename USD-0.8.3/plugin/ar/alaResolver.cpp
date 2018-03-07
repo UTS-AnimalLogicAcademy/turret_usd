@@ -222,20 +222,11 @@ AlaResolver::_GetCurrentCache()
 
 std::string
 AlaResolver::GetExtension(const std::string& path)
-{  
-    /*std::size_t found = path.find("tank");*/
-
-    std::cout << "Getting extension for: " << path << "\n\n";
-
-    if(g_zmq.matches_schema(path)) {
-        std::cout << "Schema extension!\n\n";
-        std::cout << "Result usd" << "\n";
-        
+{
+    if(g_zmq.matches_schema(path)) {   
         return "usd";
     }
-    std::string r =  ArDefaultResolver::GetExtension(path);
-    std::cout << "Result " << r << "\n";
-    return r;
+    return ArDefaultResolver::GetExtension(path);
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE
