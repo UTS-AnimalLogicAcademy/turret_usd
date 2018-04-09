@@ -6,7 +6,7 @@ cmake_minimum_required (VERSION 3.2)
 macro(set_option option value) 
     set(${option} ${value} CACHE INTERNAL ""FORCE)
 endmacro()
-set_option(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/USD-0.8.3)
+set_option(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/source)
                                                                                                                  #alembic plugin
 set_option(ALEMBIC_DIR $ENV{REZ_ALEMBIC_ROOT})
 set_option(ALEMBIC_LIBRARY_DIR $ENV{REZ_ALEMBIC_ROOT}/lib)
@@ -44,6 +44,6 @@ $ENV{REZ_OPENSUBDIV_ROOT}/lib/libosdGPU.so
 set_option(PTEX_LOCATION $ENV{REZ_PTEX_ROOT})
 set_option(PTEX_INCLUDE_DIR $ENV{REZ_PTEX_ROOT}/include)
 set_option(PTEX_LIBRARY $ENV{REZ_PTEX_ROOT}/lib64/libPtex.so)
-    
 
-add_subdirectory("USD-0.8.3")
+
+add_subdirectory("source")
