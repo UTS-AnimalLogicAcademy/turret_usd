@@ -82,6 +82,7 @@ namespace usd_zmq
 
     std::string zmqClient::resolve_name(const std::string& a_path)
     {
+        std::cout << "Resolving name: " << a_path;
         const auto parsed_path = parse_path(a_path);
         return parsed_path;
     }

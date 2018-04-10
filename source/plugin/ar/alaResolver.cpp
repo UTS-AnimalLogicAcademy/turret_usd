@@ -49,10 +49,11 @@ std::string
 AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInfo) {
     // Check if path provided is of tank schema
     if(g_zmq.matches_schema(path)) {
-        std::cout << "Resolving tank query!\n";
-        return g_zmq.resolve_name(path);
+        std::string query = path;
+        
+        return g_zmq.resolve_name(query);
     } else {
-        std::cout << "Could not resolve query, using default resolver!\n";
+        //std::cout << "Could not resolve query, using default resolver!\n";
         return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
     }
 }
@@ -81,14 +82,13 @@ AlaResolver::FetchToLocalResolvedPath(
     const std::string& path,
     const std::string& resolvedPath)
 {
-    std::cout << "Path: " << path << "\n\n";
-    std::cout << "Resolved Path: " << resolvedPath << "\n\n";
-    if(g_zmq.matches_schema(path)) {
-        std::cout << "Fetching local - false\n";
+    return true;
+
+    /*if(g_zmq.matches_schema(path)) {
         return true;
     } else {
         return true;
-    }
+    }*/
 }
 
 std::string
