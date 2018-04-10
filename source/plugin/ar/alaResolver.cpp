@@ -50,7 +50,15 @@ AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInf
     // Check if path provided is of tank schema
     if(g_zmq.matches_schema(path)) {
         std::string query = path;
-        
+
+        // Check for USD_ASSET_TIME env var
+        const std::string envUsdAssetTime = TfGetenv("USD_ASSET_TIME");
+
+        // If time var exists, append asset time to query
+        if(!envUsdAssetTime.empty()) {
+            query += "&time=" + envUsdAssetTime;
+        }
+
         return g_zmq.resolve_name(query);
     } else {
         //std::cout << "Could not resolve query, using default resolver!\n";
