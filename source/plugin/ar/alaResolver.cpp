@@ -61,7 +61,7 @@ AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInf
 
         return g_zmq.resolve_name(query);
     } else {
-        //std::cout << "Could not resolve query, using default resolver!\n";
+        std::cout << "Couldn't resolve query, using default resolver behaviour..\n";
         return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
     }
 }
