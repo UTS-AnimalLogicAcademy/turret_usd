@@ -34,7 +34,7 @@ namespace {
         zmq::context_t context(1);
         zmq::socket_t socket(context, ZMQ_REQ);
 
-        std::cout << "Connecting to local zmq server..." << "\n";
+        std::cout << "ALA USD Resolver - connecting to local zmq server..." << "\n\n";
         
         socket.connect("tcp://" + std::string(usd_zmq::ZMQ_SERVER) + ":" + std::string(usd_zmq::ZMQ_PORT));
 
@@ -57,7 +57,7 @@ namespace {
 
         // Store the reply
         std::string realPath = std::string((char *)reply.data());
-        std::cout << "Received real response: " << realPath << "\n\n\n";
+        std::cout << "ALA USD Resolver - received real response: " << realPath << "\n\n";
 
         // Cache reply
         //Cache cache = {realPath, std::time(0)};
@@ -82,7 +82,7 @@ namespace usd_zmq
 
     std::string zmqClient::resolve_name(const std::string& a_path)
     {
-        std::cout << "Resolving name: " << a_path;
+        std::cout << "ALA USD Resolver - resolving name: " << a_path << "\n\n";
         const auto parsed_path = parse_path(a_path);
         return parsed_path;
     }
