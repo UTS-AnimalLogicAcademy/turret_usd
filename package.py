@@ -2,7 +2,7 @@
 
 name = 'ala_usd_resolver'
 
-version = '0.0.8'
+version = '0.0.9'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -23,3 +23,4 @@ variants = [
 
 def commands():
     env.PXR_PLUGINPATH_NAME.append('{root}/plugin/usd/')
+    env.ALA_USD_RESOLVER_LOG_LEVEL.set("1")

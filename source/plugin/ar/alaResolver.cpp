@@ -16,6 +16,7 @@
 
 #include <tbb/concurrent_hash_map.h>
 #include <iostream>
+#include <string>
 
 
 #include "zmqClient.h"
@@ -61,8 +62,13 @@ AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInf
 
         return g_zmq.resolve_name(query);
     } else {
-        std::cout << "ALA USD Resolver - using default resolver for file path: " << path;
-        std::cout << "\n\n";
+
+        const char* env_p = std::getenv("ALA_USD_RESOLVER_LOG_LEVEL");
+        const std::string env_s = std::string(env_p);
+        if(env_s == "1"){
+            std::cout << "ALA USD Resolver - using default resolver for file path: " << path << "\n\n";
+        }
+
 
         return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
     }

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include <ctime>
+#include <string>
 
 #include "../../external/zmq.hpp"
 
@@ -34,8 +35,12 @@ namespace {
         zmq::context_t context(1);
         zmq::socket_t socket(context, ZMQ_REQ);
 
-        std::cout << "ALA USD Resolver - connecting to local zmq server..." << "\n\n";
-        
+        const char* env_p = std::getenv("ALA_USD_RESOLVER_LOG_LEVEL");
+        const std::string env_s = std::string(env_p);
+        if(env_s == "1"){
+            std::cout << "ALA USD Resolver - connecting to local zmq server..." << "\n\n";
+        }
+
         socket.connect("tcp://" + std::string(usd_zmq::ZMQ_SERVER) + ":" + std::string(usd_zmq::ZMQ_PORT));
 
         socket.setsockopt(ZMQ_LINGER, 5000);
@@ -57,11 +62,13 @@ namespace {
 
         // Store the reply
         std::string realPath = std::string((char *)reply.data());
-        std::cout << "ALA USD Resolver - received real response: " << realPath << "\n\n";
+
+        if(env_s == "1"){
+            std::cout << "ALA USD Resolver - received real response: " << realPath << "\n\n";
+        }
 
         // Cache reply
         //Cache cache = {realPath, std::time(0)};
-
         //cached_queries.insert(std::make_pair(a_path, cache));
 
         return realPath;
@@ -82,7 +89,12 @@ namespace usd_zmq
 
     std::string zmqClient::resolve_name(const std::string& a_path)
     {
-        std::cout << "ALA USD Resolver - resolving name: " << a_path << "\n\n";
+        const char* env_p = std::getenv("ALA_USD_RESOLVER_LOG_LEVEL");
+        const std::string env_s = std::string(env_p);
+        if(env_s == "1"){
+            std::cout << "ALA USD Resolver - resolving name: " << a_path << "\n\n";
+        }
+
         const auto parsed_path = parse_path(a_path);
         return parsed_path;
     }
