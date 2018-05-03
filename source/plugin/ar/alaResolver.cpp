@@ -23,7 +23,7 @@
 PXR_NAMESPACE_OPEN_SCOPE
 
 namespace {
-    usd_zmq::zmqClient g_zmq;
+    usd_zmq::zmqClient* g_zmq;
 }
 
 AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
@@ -31,12 +31,12 @@ AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
 
 AlaResolver::AlaResolver() : ArDefaultResolver()
 {
-
+    g_zmq = new usd_zmq::zmqClient();
 }
 
 AlaResolver::~AlaResolver()
 {
-    
+    delete g_zmq;
 }
 
 std::string
@@ -48,7 +48,7 @@ AlaResolver::Resolve(const std::string& path)
 std::string
 AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInfo) {
     // Check if path provided is of tank schema
-    if(g_zmq.matches_schema(path)) {
+    if(g_zmq->matches_schema(path)) {
         std::string query = path;
 
         // Check for USD_ASSET_TIME env var
@@ -59,10 +59,9 @@ AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInf
             query += "&time=" + envUsdAssetTime;
         }
 
-        return g_zmq.resolve_name(query);
+        return g_zmq->resolve_name(query);
     } else {
-        std::cout << "ALA USD Resolver - using default resolver for file path: " << path;
-        std::cout << "\n\n";
+        std::cout << "ALA USD Resolver - using default resolver for file path: " << path << "\n\n";
 
         return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
     }
@@ -94,7 +93,7 @@ AlaResolver::FetchToLocalResolvedPath(
 {
     return true;
 
-    /*if(g_zmq.matches_schema(path)) {
+    /*if(g_zmq->matches_schema(path)) {
         return true;
     } else {
         return true;
@@ -104,7 +103,7 @@ AlaResolver::FetchToLocalResolvedPath(
 std::string
 AlaResolver::GetExtension(const std::string& path)
 {
-    if(g_zmq.matches_schema(path)) {   
+    if(g_zmq->matches_schema(path)) {   
         // TODO: Query tank for extension
         return "usd";
     }
