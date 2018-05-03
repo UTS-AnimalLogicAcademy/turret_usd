@@ -22,10 +22,10 @@ namespace usd_zmq
     };
 
 
-    class zmqClient {
+    class zmqDispatch {
         public:
-            zmqClient();
-            ~zmqClient();
+            zmqDispatch();
+            ~zmqDispatch();
 
             std::string resolve_name(const std::string& a_path);
             bool resolve_exists(const std::string& a_path);
@@ -35,10 +35,9 @@ namespace usd_zmq
             std::string parse_query(const std::string& a_query);
 
         protected:
-            zmq::context_t m_context;
-            zmq::socket_t m_socket;
+            
 
             //<Tank_Query, Cache_Result>
-            //std::map<std::string, zmqQueryCache> m_cachedQueries;
+            std::map<std::string, zmqQueryCache> m_cachedQueries;
     };
 }
