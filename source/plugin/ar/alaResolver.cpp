@@ -31,13 +31,10 @@ AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
 
 AlaResolver::AlaResolver() : ArDefaultResolver()
 {
-    //if(g_zmq != nullptr)
-    //g_zmq = new usd_zmq::zmqDispatch();
 }
 
 AlaResolver::~AlaResolver()
 {
-    //delete g_zmq;
 }
 
 std::string
@@ -60,9 +57,11 @@ AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInf
             query += "&time=" + envUsdAssetTime;
         }
 
+        std::cout << "ALA USD Resolver - using ala usd resolver for file path: " << path << "\n";
+
         return g_zmq.resolve_name(query);
     } else {
-        //std::cout << "ALA USD Resolver - using default resolver for file path: " << path << "\n\n";
+        std::cout << "ALA USD Resolver - using default resolver for file path: " << path << "\n\n";
 
         return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
     }

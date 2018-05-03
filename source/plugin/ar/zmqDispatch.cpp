@@ -50,7 +50,7 @@ namespace usd_zmq
             //std::cout << "Cache time: " << cached_result->second.timestamp << "\n";
             // If cache is still fresh
             //if(std::time(0) - cached_result->second.timestamp <= usd_zmq::ZMQ_TIMEOUT)
-            std::cout << "Received Cached response: " << cached_result->second.resolved_path << "\n\n";
+            std::cout << " - ALA USD Resolver - Received Cached response: " << cached_result->second.resolved_path << "\n\n";
             //std::cout << "-------------------------------------------------------------------------------------------------------------\n\n\n\n";
             return cached_result->second.resolved_path;
         }
@@ -82,7 +82,7 @@ namespace usd_zmq
 
         // Store the reply
         std::string realPath = std::string((char *)reply.data());
-        std::cout << "ALA USD Resolver - received real response: " << realPath << "\n\n";
+        std::cout << " - ALA USD Resolver - received real response: " << realPath << "\n\n";
 
         // Cache reply
         zmqQueryCache cache = {realPath, std::time(0)};
