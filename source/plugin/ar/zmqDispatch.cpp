@@ -42,9 +42,6 @@ namespace usd_zmq
         // Search for cached result
         const auto cached_result = m_cachedQueries.find(a_query);
 
-        //std::cout << "Count: " << m_cachedQueries.count(a_query) << '\n';
-        //std::cout << "Size: " << m_cachedQueries.size() << '\n';
-
         if (cached_result != m_cachedQueries.end()) {
             //std::cout << "Current time: " << std::time(0) << "\n";
             //std::cout << "Cache time: " << cached_result->second.timestamp << "\n";
@@ -69,8 +66,6 @@ namespace usd_zmq
         // Create zmq request
         zmq::message_t request(a_query.c_str(), a_query.length());
         
-        //std::cout << "Sending request: " << a_query << "\n";
-
         // Send zmq request
         m_socket.send(request, ZMQ_NOBLOCK);
 
@@ -87,11 +82,8 @@ namespace usd_zmq
 
         m_cachedQueries.insert(std::make_pair(a_query, cache));
 
-        //m_socket.disconnect("tcp://" + std::string(usd_zmq::ZMQ_SERVER) + ":" + std::string(usd_zmq::ZMQ_PORT));
         m_socket.close();
         m_context.close();
-
-        //std::cout << "ALA USD Resolver - Closed socket connection...\n";
 
         return realPath;
     }

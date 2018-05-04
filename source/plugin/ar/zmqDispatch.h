@@ -21,7 +21,6 @@ namespace usd_zmq
         std::time_t timestamp;
     };
 
-
     class zmqDispatch {
         public:
             zmqDispatch();
