@@ -58,7 +58,7 @@ AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInf
             query += "&time=" + envUsdAssetTime;
         }
 
-        std::cout << "ALA USD Resolver - using ala usd resolver for file path: " << path << "\n";
+        std::cout << "ALA USD Resolver - using ala usd resolver for file path: " << path << "\n\n";
 
         return g_zmq.resolve_name(query);
     } else {
