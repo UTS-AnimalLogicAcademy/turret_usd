@@ -67,10 +67,8 @@ namespace usd_zmq
         m_socket.setsockopt(ZMQ_RCVTIMEO, 5000);
 
         // Create zmq request
-        //zmq::message_t request(a_query.length());
         zmq::message_t request(a_query.c_str(), a_query.length());
-        //memcpy(request.data(), a_query.c_str(), a_query.length());
-
+        
         //std::cout << "Sending request: " << a_query << "\n";
 
         // Send zmq request
