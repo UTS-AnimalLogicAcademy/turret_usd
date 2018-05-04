@@ -19,12 +19,12 @@
 #include <string>
 
 
-#include "zmqClient.h"
+#include "zmqDispatch.h"
 
 PXR_NAMESPACE_OPEN_SCOPE
 
 namespace {
-    usd_zmq::zmqClient g_zmq;
+    usd_zmq::zmqDispatch g_zmq;
 }
 
 AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
@@ -32,12 +32,12 @@ AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
 
 AlaResolver::AlaResolver() : ArDefaultResolver()
 {
-
+    std::cout << "ALA USD Resolver - Created Resolver\n\n";
 }
 
 AlaResolver::~AlaResolver()
 {
-    
+    std::cout << "ALA USD Resolver - Destroyed Resolver\n\n";
 }
 
 std::string
@@ -59,6 +59,8 @@ AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInf
         if(!envUsdAssetTime.empty()) {
             query += "&time=" + envUsdAssetTime;
         }
+
+        std::cout << "ALA USD Resolver - using ala usd resolver for file path: " << path << "\n\n";
 
         return g_zmq.resolve_name(query);
     } else {

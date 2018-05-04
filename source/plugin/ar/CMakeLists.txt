@@ -23,7 +23,7 @@ pxr_plugin(${PXR_PACKAGE}
         alaResolver.h
 
     CPPFILES
-        zmqClient.cpp
+        zmqDispatch.cpp
         alaResolver.cpp
 
     RESOURCE_FILES
