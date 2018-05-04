@@ -32,10 +32,12 @@ AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
 
 AlaResolver::AlaResolver() : ArDefaultResolver()
 {
+    std::cout << "ALA USD Resolver - Created Resolver\n\n";
 }
 
 AlaResolver::~AlaResolver()
 {
+    std::cout << "ALA USD Resolver - Destroyed Resolver\n\n";
 }
 
 std::string
