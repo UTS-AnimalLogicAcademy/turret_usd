@@ -14,7 +14,8 @@ namespace usd_zmq
     constexpr auto ZMQ_SERVER = "localhost";
     constexpr auto ZMQ_PORT = "5555";
 
-    const auto ZMQ_TIMEOUT = 60000;    
+    const auto ZMQ_TIMEOUT = 60000;
+    const auto ZMQ_RETRIES = 1000;
     //const auto ZMQ_TIMEOUT = 120;
 
     const bool ZMQ_CACHE_QUERIES = false;
