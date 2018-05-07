@@ -18,7 +18,6 @@
 #include <iostream>
 #include <string>
 
-
 #include "zmqDispatch.h"
 
 PXR_NAMESPACE_OPEN_SCOPE
@@ -33,6 +32,10 @@ AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
 AlaResolver::AlaResolver() : ArDefaultResolver()
 {
     std::cout << "ALA USD Resolver - Created Resolver\n\n";
+
+    // Should zmq cache queries
+    const bool envUseCache = TfGetenvBool("USD_CACHE_QUERIES", usd_zmq::ZMQ_CACHE_QUERIES);
+    g_zmq.SetUseCache(envUseCache);    
 }
 
 AlaResolver::~AlaResolver()

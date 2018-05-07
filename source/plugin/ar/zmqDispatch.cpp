@@ -9,7 +9,7 @@ namespace usd_zmq
 {
     // -- Public
 
-    zmqDispatch::zmqDispatch() { }
+    zmqDispatch::zmqDispatch() : m_useCache(usd_zmq::ZMQ_CACHE_QUERIES) { }
 
     zmqDispatch::~zmqDispatch() { }
 
@@ -39,7 +39,7 @@ namespace usd_zmq
 
     std::string zmqDispatch::parse_query(const std::string& a_query)
     {
-        if(usd_zmq::ZMQ_CACHE_QUERIES) {
+        if(m_useCache) {
             // Search for cached result
             const auto cached_result = m_cachedQueries.find(a_query);
 
@@ -79,7 +79,7 @@ namespace usd_zmq
         std::string realPath = std::string((char *)reply.data());
         std::cout << "ALA USD Resolver - received real response: " << realPath << "\n\n";
 
-        if(usd_zmq::ZMQ_CACHE_QUERIES) {
+        if(m_useCache) {
             // Cache reply
             zmqQueryCache cache = {realPath, std::time(0)};
             
