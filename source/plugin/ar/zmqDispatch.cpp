@@ -69,15 +69,23 @@ namespace usd_zmq
         zmq::message_t request(a_query.c_str(), a_query.length());
         
         // Send zmq request
-        m_socket.send(request, ZMQ_NOBLOCK);
+        m_socket.send(request/* , ZMQ_NOBLOCK */);
 
         // Wait for the reply
         zmq::message_t reply;
-        m_socket.recv(&reply);
+        int result = m_socket.recv(&reply);
+
+        if(result < 1) {
+            int errnum = zmq_errno();
+            //There has been an error
+            const char* errmsg = zmq_strerror(errnum);
+
+            std::cout << "ZMQ ERROR: " << errnum << " : " << errmsg << "\n\n\n";
+        }
     
         // Store the reply
         std::string realPath = std::string((char *)reply.data());
-        std::cout << "ALA USD Resolver - received real response: " << realPath << "\n\n";
+        std::cout << "ALA USD Resolver - Query / Response: " << a_query << '/' << realPath << "\n\n";
 
         if(m_useCache) {
             // Cache reply
