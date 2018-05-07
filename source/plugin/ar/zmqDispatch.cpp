@@ -9,7 +9,7 @@ namespace usd_zmq
 {
     // -- Public
 
-    zmqDispatch::zmqDispatch() { }
+    zmqDispatch::zmqDispatch() : m_useCache(usd_zmq::ZMQ_CACHE_QUERIES) { }
 
     zmqDispatch::~zmqDispatch() { }
 
@@ -39,29 +39,31 @@ namespace usd_zmq
 
     std::string zmqDispatch::parse_query(const std::string& a_query)
     {
-        // Search for cached result
-        const auto cached_result = m_cachedQueries.find(a_query);
+        if(m_useCache) {
+            // Search for cached result
+            const auto cached_result = m_cachedQueries.find(a_query);
 
-        if (cached_result != m_cachedQueries.end()) {
-            //std::cout << "Current time: " << std::time(0) << "\n";
-            //std::cout << "Cache time: " << cached_result->second.timestamp << "\n";
-            // If cache is still fresh
-            //if(std::time(0) - cached_result->second.timestamp <= usd_zmq::ZMQ_TIMEOUT)
-            std::cout << "ALA USD Resolver - Received Cached response: " << cached_result->second.resolved_path << "\n\n";
-            //std::cout << "-------------------------------------------------------------------------------------------------------------\n\n\n\n";
-            return cached_result->second.resolved_path;
+            if (cached_result != m_cachedQueries.end()) {
+                //std::cout << "Current time: " << std::time(0) << "\n";
+                //std::cout << "Cache time: " << cached_result->second.timestamp << "\n";
+                // If cache is still fresh
+                //if(std::time(0) - cached_result->second.timestamp <= usd_zmq::ZMQ_CACHE_TIMEOUT)
+                std::cout << "ALA USD Resolver - Received Cached response: " << cached_result->second.resolved_path << "\n\n";
+                //std::cout << "-------------------------------------------------------------------------------------------------------------\n\n\n\n";
+                return cached_result->second.resolved_path;
+            }
         }
 
         // Check socket status
 
         zmq::context_t m_context(1);
         zmq::socket_t m_socket(m_context, ZMQ_REQ);
-        
+    
         //std::cout << "ALA USD Resolver - Connecting to local zmq server..." << "\n";
         m_socket.connect("tcp://" + std::string(usd_zmq::ZMQ_SERVER) + ":" + std::string(usd_zmq::ZMQ_PORT));
 
-        m_socket.setsockopt(ZMQ_LINGER, 5000);
-        m_socket.setsockopt(ZMQ_RCVTIMEO, 5000);
+        m_socket.setsockopt(ZMQ_LINGER, usd_zmq::ZMQ_TIMEOUT);
+        m_socket.setsockopt(ZMQ_RCVTIMEO, usd_zmq::ZMQ_TIMEOUT);
 
         // Create zmq request
         zmq::message_t request(a_query.c_str(), a_query.length());
@@ -72,15 +74,17 @@ namespace usd_zmq
         // Wait for the reply
         zmq::message_t reply;
         m_socket.recv(&reply);
-
+    
         // Store the reply
         std::string realPath = std::string((char *)reply.data());
         std::cout << "ALA USD Resolver - received real response: " << realPath << "\n\n";
 
-        // Cache reply
-        zmqQueryCache cache = {realPath, std::time(0)};
-
-        m_cachedQueries.insert(std::make_pair(a_query, cache));
+        if(m_useCache) {
+            // Cache reply
+            zmqQueryCache cache = {realPath, std::time(0)};
+            
+            m_cachedQueries.insert(std::make_pair(a_query, cache));
+        }
 
         m_socket.close();
         m_context.close();
