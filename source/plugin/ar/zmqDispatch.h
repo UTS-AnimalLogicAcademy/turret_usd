@@ -14,7 +14,10 @@ namespace usd_zmq
     constexpr auto ZMQ_SERVER = "localhost";
     constexpr auto ZMQ_PORT = "5555";
 
-    const double ZMQ_TIMEOUT = 100.0;
+    const auto ZMQ_TIMEOUT = 60000;
+
+    const bool ZMQ_CACHE_QUERIES = false;
+    const auto ZMQ_CACHE_TIMEOUT = 100.0;
 
     struct zmqQueryCache {
         std::string resolved_path;
@@ -35,7 +38,6 @@ namespace usd_zmq
 
         protected:
             
-
             //<Tank_Query, Cache_Result>
             std::map<std::string, zmqQueryCache> m_cachedQueries;
     };
