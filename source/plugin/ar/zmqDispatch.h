@@ -16,7 +16,7 @@ namespace usd_zmq
 
     const auto ZMQ_TIMEOUT = 120000;
 
-    const bool ZMQ_CACHE_QUERIES = true;
+    const bool ZMQ_CACHE_QUERIES = false;
     const auto ZMQ_CACHE_TIMEOUT = 100.0;
 
     struct zmqQueryCache {
