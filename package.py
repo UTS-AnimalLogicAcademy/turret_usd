@@ -24,4 +24,4 @@ variants = [
 def commands():
     env.PXR_PLUGINPATH_NAME.append('{root}/plugin/usd/')
     env.ALA_USD_RESOLVER_LOG_LEVEL.set("1")
-    env.PXR_WORK_THREAD_LIMIT.set(1)
+    #env.PXR_WORK_THREAD_LIMIT.set(1)

@@ -110,5 +110,6 @@ namespace usd_zmq
 
             return realPath;
         }
+        return "Unable to parse query";
     }
 }
