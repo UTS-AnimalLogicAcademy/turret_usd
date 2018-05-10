@@ -2,7 +2,7 @@
 
 name = 'ala_usd_resolver'
 
-version = '0.0.15'
+version = '0.0.16'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -10,6 +10,7 @@ authors = [ 'ben.skinner',
 
 requires = [
     'usd',
+    'zmq_client_cpp'
 ]
 
 build_requires = [

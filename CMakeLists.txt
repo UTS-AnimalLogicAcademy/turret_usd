@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 3.2)
 #include(RezBuild)
 #rez_find_packages(PREFIX pkgs AUTO)
 
+
 macro(set_option option value) 
     set(${option} ${value} CACHE INTERNAL ""FORCE)
 endmacro()
