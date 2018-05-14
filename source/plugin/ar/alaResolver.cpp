@@ -23,7 +23,7 @@
 PXR_NAMESPACE_OPEN_SCOPE
 
 namespace {
-    zmq_client::zmqClient g_zmq;
+    zmq_client::zmqClient g_zmq("usd");
 }
 
 AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
@@ -31,11 +31,7 @@ AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
 
 AlaResolver::AlaResolver() : ArDefaultResolver()
 {
-    std::cout << "ALA USD Resolver - Created Resolver\n\n";
-
-    // Should zmq cache queries
-    const bool envUseCache = TfGetenvBool("USD_CACHE_QUERIES", zmq_client::ZMQ_CACHE_QUERIES);
-    g_zmq.SetUseCache(envUseCache);    
+    std::cout << "ALA USD Resolver - Created Resolver\n\n"; 
 }
 
 AlaResolver::~AlaResolver()
@@ -74,11 +70,9 @@ AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInf
             std::cout << "ALA USD Resolver - using default resolver for file path: " << path << "\n\n";
         }
 
-
         return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
     }
 }
-
 
 void
 AlaResolver::UpdateAssetInfo(
