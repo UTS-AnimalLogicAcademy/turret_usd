@@ -11,7 +11,7 @@ pxr_plugin(${PXR_PACKAGE}
         vt
         ar
         ${Boost_PYTHON_LIBRARY}
-        $ENV{ZMQ_CLIENT_LIB}
+        $ENV{ZMQ_CLIENT_LIB}/libzmq_client_cpp.so
 
     INCLUDE_DIRS
         $ENV{REZ_USD_ROOT}/include
