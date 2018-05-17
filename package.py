@@ -2,7 +2,7 @@
 
 name = 'ala_usd_resolver'
 
-version = '0.0.19'
+version = '0.0.20'
 
 authors = [ 'ben.skinner',
             'daniel.flood',

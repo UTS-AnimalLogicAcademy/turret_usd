@@ -19,6 +19,7 @@
 #include <string>
 
 #include <zmq_client_cpp/zmqClient.h>
+#include <zmq_client_cpp/zmqLogger.h>
 
 PXR_NAMESPACE_OPEN_SCOPE
 
@@ -32,6 +33,7 @@ AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
 AlaResolver::AlaResolver() : ArDefaultResolver()
 {
     std::cout << "ALA USD Resolver - Created Resolver\n\n"; 
+    zmq_client::zmqLogger::Instance()->SetPrefix("ALA USD Resolver");
 }
 
 AlaResolver::~AlaResolver()
@@ -59,16 +61,12 @@ AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInf
             query += "&time=" + envUsdAssetTime;
         }
 
-        std::cout << "ALA USD Resolver - using ala usd resolver for file path: " << query << "\n\n";
+        zmq_client::zmqLogger::Instance()->Log("ALA USD Resolver - using ala usd resolver for file path: " + query);
 
         return g_zmq.resolve_name(query);
     } else {
 
-        const char* env_p = std::getenv("ALA_USD_RESOLVER_LOG_LEVEL");
-        const std::string env_s = std::string(env_p);
-        if(env_s == "1"){
-            std::cout << "ALA USD Resolver - using default resolver for file path: " << path << "\n\n";
-        }
+        zmq_client::zmqLogger::Instance()->Log("ALA USD Resolver - using default resolver for file path: " + path);
 
         return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
     }
