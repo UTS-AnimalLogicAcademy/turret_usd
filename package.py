@@ -2,7 +2,7 @@
 
 name = 'ala_usd_resolver'
 
-version = '0.0.21'
+version = '0.0.3'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -10,7 +10,8 @@ authors = [ 'ben.skinner',
 
 requires = [
     'usd',
-    'zmq_client_cpp'
+    'zmq_client_cpp',
+    'PyOpenGL-3.1.0'
 ]
 
 build_requires = [
@@ -19,7 +20,8 @@ build_requires = [
 
 variants = [
 	['platform-linux', 'arch-x86_64', 'usd-0.8.3'],
-	['platform-linux', 'arch-x86_64', 'usd-0.8.4']
+	['platform-linux', 'arch-x86_64', 'usd-0.8.4'],
+	['platform-linux', 'arch-x86_64', 'usd-0.8.5']
 ]
 
 def commands():
