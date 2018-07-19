@@ -2,7 +2,7 @@
 
 name = 'ala_usd_resolver'
 
-version = '0.0.22'
+version = '0.0.23'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -21,7 +21,8 @@ build_requires = [
 variants = [
 	['platform-linux', 'arch-x86_64', 'usd-0.8.3'],
 	['platform-linux', 'arch-x86_64', 'usd-0.8.4'],
-	['platform-linux', 'arch-x86_64', 'usd-0.8.5']
+	['platform-linux', 'arch-x86_64', 'usd-0.8.5'],
+	['platform-linux', 'arch-x86_64', 'usd-0.8.6.001']
 ]
 
 def commands():
