@@ -2,7 +2,7 @@
 
 name = 'ala_usd_resolver'
 
-version = '0.0.23'
+version = '0.0.24'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -10,7 +10,7 @@ authors = [ 'ben.skinner',
 
 requires = [
     'usd',
-    'zmq_client_cpp',
+    'zmq_client_cpp-0.0.7+',
     'PyOpenGL-3.1.0'
 ]
 
