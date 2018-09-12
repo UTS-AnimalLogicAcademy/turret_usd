@@ -32,8 +32,7 @@ AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
 
 AlaResolver::AlaResolver() : ArDefaultResolver()
 {
-    std::cout << "ALA USD Resolver - Created Resolver\n\n"; 
-    zmq_client::zmqLogger::Instance()->SetPrefix("ALA USD Resolver");
+    std::cout << "ALA USD Resolver - Created Resolver\n\n";
 }
 
 AlaResolver::~AlaResolver()
