@@ -10,7 +10,7 @@ authors = [ 'ben.skinner',
 
 requires = [
     'usd',
-    'zmq_client_cpp-0.0.7+',
+    'zmq_client_cpp-0.0.8+',
     'PyOpenGL-3.1.0'
 ]
 
