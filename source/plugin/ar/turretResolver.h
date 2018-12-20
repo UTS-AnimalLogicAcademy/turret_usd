@@ -11,13 +11,13 @@
 
 PXR_NAMESPACE_OPEN_SCOPE
 
-class AlaResolver
+class TurretResolver
     : public ArDefaultResolver
 {
 public:
-    AlaResolver();
+    TurretResolver();
 
-    virtual ~AlaResolver();
+    virtual ~TurretResolver();
 
 AR_API
     virtual std::string GetExtension(const std::string& path) override;

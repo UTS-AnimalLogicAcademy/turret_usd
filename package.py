@@ -19,15 +19,15 @@ build_requires = [
 ]
 
 variants = [
-	['platform-linux', 'arch-x86_64', 'usd-0.8.5']
-#	['platform-linux', 'arch-x86_64', 'usd-18.09'],
-#	['platform-linux', 'arch-x86_64', 'usd-18.11'],
-#	['platform-linux', 'arch-x86_64', 'usd-19.01']
+	['platform-linux', 'arch-x86_64', 'usd-0.8.3'],
+	['platform-linux', 'arch-x86_64', 'usd-0.8.4'],
+	['platform-linux', 'arch-x86_64', 'usd-0.8.5'],
+	['platform-linux', 'arch-x86_64', 'usd-18.09'],
+	['platform-linux', 'arch-x86_64', 'usd-18.11'],
+	['platform-linux', 'arch-x86_64', 'usd-19.01']
 ]
 
 def commands():
     env.PXR_PLUGINPATH_NAME.append('{root}/plugin/usd/')
-    env.ALA_USD_RESOLVER_LOG_LEVEL.set("1")
-
     env.ZMQ_CACHE_QUERIES.set("1")
-    #env.PXR_WORK_THREAD_LIMIT.set(1)
+

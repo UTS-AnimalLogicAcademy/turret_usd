@@ -1,4 +1,4 @@
-#include "alaResolver.h"
+#include "turretResolver.h"
 
 #include "pxr/pxr.h"
 #include "pxr/usd/ar/defineResolver.h"
@@ -27,27 +27,27 @@ namespace {
     turret_client::turretClient g_zmq("usd");
 }
 
-AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
+AR_DEFINE_RESOLVER(TurretResolver, ArResolver);
 
 
-AlaResolver::AlaResolver() : ArDefaultResolver()
+TurretResolver::TurretResolver() : ArDefaultResolver()
 {
-    std::cout << "ALA USD Resolver - Created Resolver\n\n";
+    std::cout << "TURRET USD Resolver - Created Resolver\n\n";
 }
 
-AlaResolver::~AlaResolver()
+TurretResolver::~TurretResolver()
 {
-    std::cout << "ALA USD Resolver - Destroyed Resolver\n\n";
-}
-
-std::string
-AlaResolver::Resolve(const std::string& path)
-{
-    return AlaResolver::ResolveWithAssetInfo(path, /* assetInfo = */ nullptr);
+    std::cout << "TURRET USD Resolver - Destroyed Resolver\n\n";
 }
 
 std::string
-AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInfo) {
+TurretResolver::Resolve(const std::string& path)
+{
+    return TurretResolver::ResolveWithAssetInfo(path, /* assetInfo = */ nullptr);
+}
+
+std::string
+TurretResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInfo) {
     // Check if path provided is of tank schema
     if(g_zmq.matches_schema(path)) {
         std::string query = path;
@@ -60,19 +60,19 @@ AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInf
             query += "&time=" + envUsdAssetTime;
         }
 
-        turret_client::turretLogger::Instance()->Log("ALA USD Resolver - using ala usd resolver for file path: " + query);
+        turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using ala usd resolver for file path: " + query);
 
         return g_zmq.resolve_name(query);
     } else {
 
-        turret_client::turretLogger::Instance()->Log("ALA USD Resolver - using default resolver for file path: " + path);
+        turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using default resolver for file path: " + path);
 
         return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
     }
 }
 
 void
-AlaResolver::UpdateAssetInfo(
+TurretResolver::UpdateAssetInfo(
     const std::string& identifier,
     const std::string& filePath,
     const std::string& fileVersion,
@@ -82,7 +82,7 @@ AlaResolver::UpdateAssetInfo(
 }
 
 VtValue
-AlaResolver::GetModificationTimestamp(
+TurretResolver::GetModificationTimestamp(
     const std::string& path,
     const std::string& resolvedPath)
 {
@@ -90,7 +90,7 @@ AlaResolver::GetModificationTimestamp(
 }
 
 bool 
-AlaResolver::FetchToLocalResolvedPath(
+TurretResolver::FetchToLocalResolvedPath(
     const std::string& path,
     const std::string& resolvedPath)
 {
@@ -104,7 +104,7 @@ AlaResolver::FetchToLocalResolvedPath(
 }
 
 std::string
-AlaResolver::GetExtension(const std::string& path)
+TurretResolver::GetExtension(const std::string& path)
 {
     if(g_zmq.matches_schema(path)) {   
         // TODO: Query tank for extension

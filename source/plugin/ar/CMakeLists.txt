@@ -1,5 +1,5 @@
 set(PXR_PREFIX pxr/usd)
-set(PXR_PACKAGE alaResolver)
+set(PXR_PACKAGE turretResolver)
 
 find_package(Turret REQUIRED)
 find_package(ZeroMQ REQUIRED)
@@ -30,10 +30,10 @@ pxr_plugin(${PXR_PACKAGE}
         ${Boost_INCLUDE_DIRS}
 
     PUBLIC_HEADERS
-        alaResolver.h
+        turretResolver.h
 
     CPPFILES
-        alaResolver.cpp
+        turretResolver.cpp
 
     RESOURCE_FILES
         plugInfo.json
