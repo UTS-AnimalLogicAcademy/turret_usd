@@ -18,13 +18,13 @@
 #include <iostream>
 #include <string>
 
-#include <zmq_client_cpp/zmqClient.h>
-#include <zmq_client_cpp/zmqLogger.h>
+#include <turretClient.h>
+#include <turretLogger.h>
 
 PXR_NAMESPACE_OPEN_SCOPE
 
 namespace {
-    zmq_client::zmqClient g_zmq("usd");
+    turret_client::turretClient g_zmq("usd");
 }
 
 AR_DEFINE_RESOLVER(AlaResolver, ArResolver);
@@ -60,12 +60,12 @@ AlaResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInf
             query += "&time=" + envUsdAssetTime;
         }
 
-        zmq_client::zmqLogger::Instance()->Log("ALA USD Resolver - using ala usd resolver for file path: " + query);
+        turret_client::turretLogger::Instance()->Log("ALA USD Resolver - using ala usd resolver for file path: " + query);
 
         return g_zmq.resolve_name(query);
     } else {
 
-        zmq_client::zmqLogger::Instance()->Log("ALA USD Resolver - using default resolver for file path: " + path);
+        turret_client::turretLogger::Instance()->Log("ALA USD Resolver - using default resolver for file path: " + path);
 
         return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
     }

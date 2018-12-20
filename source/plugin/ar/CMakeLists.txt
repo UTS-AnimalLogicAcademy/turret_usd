@@ -1,11 +1,14 @@
 set(PXR_PREFIX pxr/usd)
 set(PXR_PACKAGE alaResolver)
 
-include_directories($ENV{ZMQ_CLIENT_INCLUDE})
-
 link_directories($ENV{REZ_USD_ROOT}/lib $ENV{REZ_TBB_ROOT}/lib/intel64/gcc4.4/)
 
-link_libraries( $ENV{ZMQ_CLIENT_LIB}/libzmq_client_cpp.so )
+#include_directories($ENV{ZMQ_CLIENT_INCLUDE})
+#link_libraries( $ENV{ZMQ_CLIENT_LIB}/libzmq_client_cpp.so )
+
+find_package(Turret)
+link_libraries(${TURRET_LIBRARY})
+include_directories(${TURRET_INCLUDES})
 
 pxr_plugin(${PXR_PACKAGE}
     LIBRARIES

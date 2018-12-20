@@ -1,0 +1,2 @@
+set(TURRET_LIBRARY $ENV{LIBTURRET_ROOT}/lib/libturret.so)
+set(TURRET_INCLUDES $ENV{LIBTURRET_ROOT}/include)
