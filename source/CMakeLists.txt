@@ -49,12 +49,7 @@ set(CMAKE_CXX_FLAGS "${_PXR_CXX_FLAGS} ${CMAKE_CXX_FLAGS}")
 
 include(Public)
 
-#pxr_toplevel_prologue()
-
 add_subdirectory(plugin)
-include_directories(external)
-
-
 
 function(_addIfExists pkg pkgCmakeLists)
     if (EXISTS ${pkgCmakeLists})
@@ -70,4 +65,3 @@ function(_enableThirdPartyPlugin identifier)
     _addIfExists(${pkg} ${pkgCmakeLists})
 endfunction()
 
-#pxr_toplevel_epilogue()

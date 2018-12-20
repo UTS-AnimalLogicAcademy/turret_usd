@@ -9,7 +9,7 @@
                 }
             },
             "LibraryPath": "@PLUG_INFO_LIBRARY_PATH@", 
-            "Name": "ala_ar", 
+            "Name": "turret_ar",
             "ResourcePath": "@PLUG_INFO_RESOURCE_PATH@", 
             "Root": "@PLUG_INFO_ROOT@", 
             "Type": "library"
