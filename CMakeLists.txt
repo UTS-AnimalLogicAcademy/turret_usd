@@ -1,5 +1,12 @@
 cmake_minimum_required (VERSION 3.2)
 
+set(CMAKE_MODULE_PATH
+        $ENV{REZ_USD_ROOT}
+        ${CMAKE_MODULE_PATH}
+        "/mnt/ala/software/pipeline/cmake/modules/rez"
+        ${CMAKE_SOURCE_DIR}/cmake/modules
+)
+
 macro(set_option option value)
     set(${option} ${value} CACHE INTERNAL ""FORCE)
 endmacro()
