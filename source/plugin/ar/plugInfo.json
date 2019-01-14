@@ -3,7 +3,7 @@
         {
             "Info": {
                 "Types": {
-                    "AlaResolver": {
+                    "TurretResolver": {
                         "bases": [ "ArResolver" ]
                         }
                 }

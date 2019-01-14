@@ -9,6 +9,8 @@ link_directories($ENV{REZ_USD_ROOT}/lib
         ${TURRET_LIBRARY}
 )
 
+link_libraries(${TURRET_LIBRARY})
+
 include_directories(
         ${TURRET_INCLUDES}
         ${PC_LIBZMQ_INCLUDE_DIRS}

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-name = 'ala_usd_resolver'
+name = 'turret_usd'
 
 version = '1.0.0'
 
@@ -29,5 +29,5 @@ variants = [
 
 def commands():
     env.PXR_PLUGINPATH_NAME.append('{root}/plugin/usd/')
-    env.ZMQ_CACHE_QUERIES.set("1")
+
 
