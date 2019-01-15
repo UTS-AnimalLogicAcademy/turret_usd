@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '1.0.0'
+version = '0.0.1'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -12,6 +12,7 @@ requires = [
     'usd',
     'turret_lib',
     'PyOpenGL-3.1.0'
+    'jemalloc-4'
 ]
 
 build_requires = [

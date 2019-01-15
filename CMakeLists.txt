@@ -11,6 +11,9 @@ macro(set_option option value)
 endmacro()
 set_option(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/source)
 
+# jemalloc
+set_option(PXR_MALLOC_LIBRARY $ENV{REZ_JEMALLOC_ROOT}/lib/libjemalloc.so)
+
 # boost
 set_option(BOOST_ROOT $ENV{REZ_BOOST_ROOT})
 
