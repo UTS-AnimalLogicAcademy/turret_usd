@@ -11,7 +11,7 @@ authors = [ 'ben.skinner',
 requires = [
     'usd',
     'turret_lib',
-    'PyOpenGL-3.1.0'
+    'PyOpenGL-3.1.0',
     'jemalloc-4'
 ]
 
