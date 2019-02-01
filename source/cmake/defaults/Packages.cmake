@@ -53,9 +53,10 @@ if(PXR_ENABLE_PYTHON_SUPPORT)
             system
         REQUIRED
     )
-
-    # --Jinja2
-    find_package(Jinja2)
+    if(UNIX)
+        # --Jinja2
+        find_package(Jinja2)
+    endif(UNIX)
 else()
     find_package(PythonInterp 2.7 REQUIRED)
  

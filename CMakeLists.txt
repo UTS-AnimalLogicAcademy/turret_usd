@@ -1,5 +1,9 @@
 cmake_minimum_required (VERSION 3.2)
 
+if(MSVC)
+        add_definitions( -DBOOST_ALL_NO_LIB )
+endif(MSVC)
+
 set(CMAKE_MODULE_PATH
         $ENV{REZ_USD_ROOT}
         ${CMAKE_MODULE_PATH}
@@ -11,8 +15,10 @@ macro(set_option option value)
 endmacro()
 set_option(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/source)
 
-# jemalloc
-set_option(PXR_MALLOC_LIBRARY $ENV{REZ_JEMALLOC_ROOT}/lib/libjemalloc.so)
+if(UNIX)
+        # jemalloc
+        set_option(PXR_MALLOC_LIBRARY $ENV{REZ_JEMALLOC_ROOT}/lib/libjemalloc.so)
+endif(UNIX)
 
 # boost
 set_option(BOOST_ROOT $ENV{REZ_BOOST_ROOT})

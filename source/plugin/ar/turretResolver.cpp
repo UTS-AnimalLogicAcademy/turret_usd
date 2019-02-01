@@ -43,7 +43,7 @@ PXR_NAMESPACE_OPEN_SCOPE
 AR_DEFINE_RESOLVER(TurretResolver, ArResolver);
 
 TurretResolver::TurretResolver() : ArDefaultResolver(), m_turretClient("usd") {
-    std::cout << "TURRET USD Resolver - Created Resolver\n\n";
+	std::cout << "TURRET USD Resolver - Created Resolver\n\n";
 }
 
 TurretResolver::~TurretResolver() {
@@ -56,9 +56,8 @@ std::string TurretResolver::Resolve(const std::string& path) {
 
 std::string
 TurretResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInfo) {
-    // Check if path provided is of tank schema
-//    if(g_turretClient.matches_schema(path)) {
-    if(m_turretClient.matches_schema(path)) {
+	// Check if path provided is of tank schema
+	if(m_turretClient.matches_schema(path)) {
         std::string query = path;
 
         // Check for USD_ASSET_TIME env var
@@ -75,7 +74,7 @@ TurretResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* asset
     else {
         turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using default resolver for file path: " + path);
         return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
-    }
+	}
 }
 
 void TurretResolver::UpdateAssetInfo(

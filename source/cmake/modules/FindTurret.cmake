@@ -16,5 +16,9 @@
 # SOFTWARE.
 #
 
-set(TURRET_LIBRARY $ENV{LIBTURRET_ROOT}/lib/libturret.so)
+if(UNIX)
+    set(TURRET_LIBRARY $ENV{LIBTURRET_ROOT}/lib/libturret.so)
+elseif(WIN32)
+    set(TURRET_LIBRARY $ENV{LIBTURRET_ROOT}/lib/turret.lib)
+endif(UNIX)
 set(TURRET_INCLUDES $ENV{LIBTURRET_ROOT}/include)
