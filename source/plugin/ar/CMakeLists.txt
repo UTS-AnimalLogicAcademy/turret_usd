@@ -4,7 +4,34 @@ set(PXR_PACKAGE turretResolver)
 find_package(Turret REQUIRED)
 find_package(ZeroMQ REQUIRED)
 
-link_directories($ENV{REZ_USD_ROOT}/lib
+if(${USD_LIB_VARIANT} STREQUAL "HDK")
+message("-- Building turret-usd for SideFX HDK USD libs")
+set(TURRET_USD_LIB_DIR $ENV{HOUDINI_ROOT}/dsolib)
+set(TURRET_USD_INC_DIR $ENV{HOUDINI_ROOT}/toolkit/include)
+set(TURRET_USD_LIBS pxr_usd_ms )
+
+elseif(${USD_LIB_VARIANT} STREQUAL "PXR")
+message("-- Building turret-usd for Pixar USD libs")
+set(TURRET_USD_LIB_DIR $ENV{REZ_USD_ROOT}/lib)
+set(TURRET_USD_INC_DIR $ENV{REZ_USD_ROOT}/include)
+set(TURRET_USD_LIBS 
+    arch 
+    tf 
+    plug 
+    vt 
+    ar
+)
+
+elseif(${USD_LIB_VARIANT} STREQUAL "PXR_MONOLITHIC")
+message("-- Building turret-usd for monlithic Pixar USD libs")
+set(TURRET_USD_LIB_DIR $ENV{REZ_USD_ROOT}/lib)
+set(TURRET_USD_INC_DIR $ENV{REZ_USD_ROOT}/include)
+set(TURRET_USD_LIBS usd_ms )
+
+endif()
+
+link_directories(
+        ${TURRET_USD_LIB_DIR}
         $ENV{REZ_TBB_ROOT}/lib/intel64/gcc4.4/
         ${TURRET_LIBRARY}
 )
@@ -19,15 +46,11 @@ include_directories(
 
 pxr_plugin(${PXR_PACKAGE}
     LIBRARIES
-        arch
-        tf
-        plug
-        vt
-        ar
+        ${TURRET_USD_LIBS}
         ${Boost_PYTHON_LIBRARY}
 
     INCLUDE_DIRS
-        $ENV{REZ_USD_ROOT}/include
+        ${TURRET_USD_INC_DIR}
         $ENV{REZ_TBB_ROOT}/include
         ${Boost_INCLUDE_DIRS}
 
