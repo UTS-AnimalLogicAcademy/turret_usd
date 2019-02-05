@@ -41,6 +41,12 @@ link_directories(
 
 link_libraries(${TURRET_LIBRARY})
 
+include_directories(
+        ${TURRET_INCLUDES}
+        ${PC_LIBZMQ_INCLUDE_DIRS}
+        ${CPPZMQ_INCLUDE_DIRS}
+        )
+
 if(MSVC)
     link_directories($ENV{PYTHON_LIBS})
     link_libraries(wsock32.lib
@@ -49,11 +55,6 @@ if(MSVC)
         )
 endif(MSVC)
 
-include_directories(
-        ${TURRET_INCLUDES}
-        ${PC_LIBZMQ_INCLUDE_DIRS}
-        ${CPPZMQ_INCLUDE_DIRS}
-        )
 
 pxr_plugin(${PXR_PACKAGE}
     LIBRARIES

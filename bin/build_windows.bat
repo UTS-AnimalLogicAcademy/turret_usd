@@ -5,7 +5,7 @@ rd /s /q build
 mkdir build
 cd build
 
-SET USE_MONOLITHIC_USD=True
+SET USD_LIB_VARIANT=PXR_MONOLITHIC
 SET LIBTURRET_ROOT=C:/Users/142738/software/turret-lib
 SET PYTHON_LIBS=C:/Python27/libs
 

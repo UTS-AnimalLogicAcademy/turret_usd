@@ -26,4 +26,4 @@ REZ\_TBB\_ROOT=C:/path/to/USD/18.09.2/src/tbb2017\_20170226oss
 TBB\_LIBRARIES=C:/path/to/USD\_Source/src/tbb2017\_20170226oss/lib/intel64/vc14
 LIBZMQ\_INCLUDE\_DIR=C:/path/to/libzmq/include
 LIBZMQ\_LIB\_DIR=C:/path/to/libzmq-v140-mt-4\_3\_2.lib
-USE\_MONOLITHIC\_USD=True
+USD\_LIB\_VARIANT=PXR\_MONOLITHIC
