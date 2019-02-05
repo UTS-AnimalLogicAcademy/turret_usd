@@ -17,15 +17,10 @@ if (NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
     endif()
 endif()
 
-if(UNIX)
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/defaults
-                      ${CMAKE_SOURCE_DIR}/cmake/modules
-                      ${CMAKE_SOURCE_DIR}/cmake/macros)
-elseif(WIN32)
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/source/cmake/defaults
-                      ${CMAKE_SOURCE_DIR}/source/cmake/modules
-                      ${CMAKE_SOURCE_DIR}/source/cmake/macros)
-endif(UNIX)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/defaults
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros)
+
 include(Options)
 
 # Versions prior to 3.1.0 on Unix platforms built archive libraries

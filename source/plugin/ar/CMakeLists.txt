@@ -66,12 +66,12 @@ pxr_plugin(${PXR_PACKAGE}
         $ENV{REZ_TBB_ROOT}/include
         ${Boost_INCLUDE_DIRS}
 
-        PUBLIC_HEADERS
-            turretResolver.h
+    PUBLIC_HEADERS
+        turretResolver.h
 
-        CPPFILES
-            turretResolver.cpp
+    CPPFILES
+        turretResolver.cpp
 
-        RESOURCE_FILES
-            plugInfo.json
-    )
+    RESOURCE_FILES
+        plugInfo.json
+)
