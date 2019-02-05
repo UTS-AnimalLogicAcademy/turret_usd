@@ -21,6 +21,11 @@
 # KIND, either express or implied. See the Apache License for the specific
 # language governing permissions and limitations under the Apache License.
 #
+
+# specify valid options for the USD library to link against
+set(USD_LIB_VARIANT PXR CACHE STRING "Specify the USD lib variant to link against")
+set_property(CACHE USD_LIB_VARIANT PROPERTY STRINGS PXR PXR_MONOLITHIC HDK)
+
 option(PXR_STRICT_BUILD_MODE "Turn on additional warnings. Enforce all warnings as errors." OFF)
 option(PXR_VALIDATE_GENERATED_CODE "Validate script generated code" OFF)
 option(PXR_HEADLESS_TEST_MODE "Disallow GUI based tests, useful for running under headless CI systems." OFF)
