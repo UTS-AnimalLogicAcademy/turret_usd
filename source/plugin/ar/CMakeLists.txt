@@ -55,8 +55,7 @@ if(MSVC)
         )
 endif(MSVC)
 
-
-pxr_plugin(${PXR_PACKAGE}
+pxr_library(${PXR_PACKAGE}
     LIBRARIES
         ${TURRET_USD_LIBS}
         ${Boost_PYTHON_LIBRARY}
