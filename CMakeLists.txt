@@ -1,8 +1,8 @@
 cmake_minimum_required (VERSION 3.2)
 
-if(MSVC)
+if(WIN32)
         add_definitions( -DBOOST_ALL_NO_LIB )
-endif(MSVC)
+endif(WIN32)
 
 set(CMAKE_MODULE_PATH
    ${CMAKE_SOURCE_DIR}/cmake
