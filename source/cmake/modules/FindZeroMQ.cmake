@@ -4,11 +4,6 @@ if(UNIX)
     pkg_check_modules(PC_LIBZMQ QUIET libzmq)
 endif(UNIX)
 
-if(MSVC)
-    set(ZeroMQ_LIBRARY $ENV{LIBZMQ_LIB_DIR})
-    set(PC_LIBZMQ_INCLUDE_DIRS $ENV{LIBZMQ_INCLUDE_DIR})
-endif(MSVC)
-
 set(ZeroMQ_VERSION ${PC_LIBZMQ_VERSION})
 find_library(ZeroMQ_LIBRARY NAMES libzmq.so libzmq.dylib libzmq.dll
              PATHS ${PC_LIBZMQ_LIBDIR} ${PC_LIBZMQ_LIBRARY_DIRS})

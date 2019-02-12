@@ -17,7 +17,7 @@ SET REZ_TBB_ROOT=C:/Users/142738/software/USD/19.01/src/tbb2017_20170226oss
 SET REZ_USD_ROOT=C:/Users/142738/software/USD/19.01
 SET TBB_LIBRARIES=C:/Users/142738/software/USD/19.01/src/tbb2017_20170226oss/lib/intel64/vc14
 
-cmake -DCMAKE_INSTALL_PREFIX="C:\Users\142738\software\turret-usd" -G "Visual Studio 14 2015 Win64" ..
+cmake -DUSD_LIB_VARIANT:STRING="PXR_MONOLITHIC" -DZeroMQ_LIBRARY:STRING=%LIBZMQ_LIB_DIR% -DPC_LIBZMQ_INCLUDE_DIRS:STRING=%LIBZMQ_INCLUDE_DIR% -DCMAKE_INSTALL_PREFIX="C:\Users\142738\software\turret-usd" -G "Visual Studio 14 2015 Win64" ..
 cmake --build . --config Release --target install -- /M:16
 
 cd ..
