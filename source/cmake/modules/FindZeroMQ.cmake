@@ -1,11 +1,13 @@
-set(PKG_CONFIG_USE_CMAKE_PREFIX_PATH ON)
-find_package(PkgConfig)
-pkg_check_modules(PC_LIBZMQ QUIET libzmq)
+if(UNIX)
+    set(PKG_CONFIG_USE_CMAKE_PREFIX_PATH ON)
+    find_package(PkgConfig)
+    pkg_check_modules(PC_LIBZMQ QUIET libzmq)
+endif(UNIX)
 
 set(ZeroMQ_VERSION ${PC_LIBZMQ_VERSION})
 find_library(ZeroMQ_LIBRARY NAMES libzmq.so libzmq.dylib libzmq.dll
              PATHS ${PC_LIBZMQ_LIBDIR} ${PC_LIBZMQ_LIBRARY_DIRS})
-find_library(ZeroMQ_STATIC_LIBRARY NAMES libzmq-static.a libzmq.a libzmq.dll.a
+find_library(ZeroMQ_STATIC_LIBRARY NAMES libzmq-static.a libzmq.a libzmq.lib
              PATHS ${PC_LIBZMQ_LIBDIR} ${PC_LIBZMQ_LIBRARY_DIRS})
 
 # set this env var to locat the cppzmq include dir:

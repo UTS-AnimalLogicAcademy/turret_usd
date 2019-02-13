@@ -3,6 +3,9 @@ set(PXR_PACKAGE turretResolver)
 
 find_package(Turret REQUIRED)
 find_package(ZeroMQ REQUIRED)
+if(WIN32)
+    find_package(Boost REQUIRED)
+endif(WIN32)
 
 if(${USD_LIB_VARIANT} STREQUAL "HDK")
 message("-- Building turret-usd for SideFX HDK USD libs")
@@ -43,6 +46,14 @@ include_directories(
         ${PC_LIBZMQ_INCLUDE_DIRS}
         ${CPPZMQ_INCLUDE_DIRS}
         )
+
+if(WIN32)
+    link_directories($ENV{PYTHON_LIBS})
+    link_libraries(wsock32.lib
+        ws2_32.lib
+        Iphlpapi.lib
+        )
+endif(WIN32)
 
 pxr_library(${PXR_PACKAGE}
     LIBRARIES

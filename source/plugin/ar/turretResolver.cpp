@@ -57,7 +57,6 @@ std::string TurretResolver::Resolve(const std::string& path) {
 std::string
 TurretResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInfo) {
     // Check if path provided is of tank schema
-//    if(g_turretClient.matches_schema(path)) {
     if(m_turretClient.matches_schema(path)) {
         std::string query = path;
 

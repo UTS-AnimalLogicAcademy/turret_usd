@@ -52,9 +52,10 @@ option(PXR_ENABLE_NAMESPACES "Enable C++ namespaces." ON)
 
 # Precompiled headers are a win on Windows, not on gcc.
 set(pxr_enable_pch "OFF")
-if(MSVC)
-    set(pxr_enable_pch "ON")
-endif()
+# -- Ben Skinner ALA Disabled due to not needing: 1/02/2019
+#if(MSVC)
+#    set(pxr_enable_pch "ON")
+#endif()
 option(PXR_ENABLE_PRECOMPILED_HEADERS "Enable precompiled headers." "${pxr_enable_pch}")
 set(PXR_PRECOMPILED_HEADER_NAME "pch.h"
     CACHE

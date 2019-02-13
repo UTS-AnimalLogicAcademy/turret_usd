@@ -17,9 +17,9 @@ if (NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
     endif()
 endif()
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/defaults
-                      ${CMAKE_SOURCE_DIR}/cmake/modules
-                      ${CMAKE_SOURCE_DIR}/cmake/macros)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/defaults
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros)
 
 include(Options)
 
