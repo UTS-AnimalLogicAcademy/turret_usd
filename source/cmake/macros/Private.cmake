@@ -1201,6 +1201,13 @@ function(_pxr_library NAME)
         endif()
     endif()
 
+    if(NOT pluginToLibraryPath)
+        file(RELATIVE_PATH
+            pluginToLibraryPath
+            ${CMAKE_INSTALL_PREFIX}/${pluginInstallPrefix}/${NAME}
+            ${CMAKE_INSTALL_PREFIX}/${libInstallPrefix}/${libraryFilename})
+    endif()
+
     #
     # Set up the compile/link.
     #
