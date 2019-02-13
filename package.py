@@ -28,7 +28,7 @@ variants = [
 	['platform-linux', 'arch-x86_64', 'usd-18.11'],
 	['platform-linux', 'arch-x86_64', 'usd-19.01'],
 	['platform-linux', 'arch-x86_64', 'houdini-17.0', 'usd_houdini_hdk-17.0'],
-	['platform-linux', 'arch-x86_64', 'houdini-17.5', 'usd_houdini_hdk-17.5'],
+	['platform-linux', 'arch-x86_64', 'houdini-17.5', 'usd_houdini_hdk-17.5']
 ]
 
 def commands():
