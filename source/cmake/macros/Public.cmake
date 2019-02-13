@@ -245,10 +245,10 @@ function(pxr_library NAME)
     # Custom tweaks.
     if(args_TYPE STREQUAL "PLUGIN")
         # We can't build plugins if we're not building shared libraries.
-        if(NOT TARGET shared_libs)
-            message(STATUS "Skipping plugin ${NAME}, shared libraries required")
-            return()
-        endif()
+#        if(NOT TARGET shared_libs)
+#            message(STATUS "Skipping plugin ${NAME}, shared libraries required")
+#            return()
+#        endif()
 
         set(prefix "")
         set(suffix ${CMAKE_SHARED_LIBRARY_SUFFIX})
