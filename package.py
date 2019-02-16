@@ -2,14 +2,14 @@
 
 name = 'turret_usd'
 
-version = '0.0.8'
+version = '0.0.9'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
             'wen.tan' ]
 
 requires = [
-    'turret_lib',
+    'turret_lib-0+<1',
     'PyOpenGL-3.1.0',
     'jemalloc-4',
     'jinja',
@@ -21,8 +21,6 @@ private_build_requires = [
 ]
 
 variants = [
-	['platform-linux', 'arch-x86_64', 'usd-0.8.3'],
-	['platform-linux', 'arch-x86_64', 'usd-0.8.4'],
 	['platform-linux', 'arch-x86_64', 'usd-0.8.5'],
 	['platform-linux', 'arch-x86_64', 'usd-18.09'],
 	['platform-linux', 'arch-x86_64', 'usd-18.11'],
