@@ -617,16 +617,12 @@ function(_pxr_install_rpath rpathRef NAME)
     # Get and remove the origin.
     list(GET ${rpathRef} 0 origin)
 
-#    set(rpath ${${rpathRef}})
-#    list(REMOVE_AT rpath 0)
-    set(runpath ${${rpathRef}})
-    list(REMOVE_AT runpath 0)
+    set(rpath ${${rpathRef}})
+    list(REMOVE_AT rpath 0)
 
     # Canonicalize and uniquify paths.
     set(final "")
-
-#    foreach(path ${rpath})
-    foreach(path ${runpath})
+    foreach(path ${rpath})
 
         # Absolutize on Mac.  SIP disallows relative rpaths.
         if(APPLE)
