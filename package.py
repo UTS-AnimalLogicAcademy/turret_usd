@@ -21,8 +21,6 @@ private_build_requires = [
 ]
 
 variants = [
-	['platform-linux', 'arch-x86_64', 'usd-0.8.3'],
-	['platform-linux', 'arch-x86_64', 'usd-0.8.4'],
 	['platform-linux', 'arch-x86_64', 'usd-0.8.5'],
 	['platform-linux', 'arch-x86_64', 'usd-18.09'],
 	['platform-linux', 'arch-x86_64', 'usd-18.11'],
