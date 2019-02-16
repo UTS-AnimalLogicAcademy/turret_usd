@@ -36,10 +36,7 @@ endif()
 link_directories(
         ${TURRET_USD_LIB_DIR}
         $ENV{REZ_TBB_ROOT}/lib/intel64/gcc4.4/
-        ${TURRET_LIBRARY}
 )
-
-link_libraries(${TURRET_LIBRARY})
 
 include_directories(
         ${TURRET_INCLUDES}
@@ -59,6 +56,7 @@ pxr_plugin(${PXR_PACKAGE}
     LIBRARIES
         ${TURRET_USD_LIBS}
         ${Boost_PYTHON_LIBRARY}
+        ${TURRET_LIBRARY}
 
     INCLUDE_DIRS
         ${TURRET_USD_INC_DIR}

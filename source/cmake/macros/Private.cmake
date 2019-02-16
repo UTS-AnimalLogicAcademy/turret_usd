@@ -616,12 +616,18 @@ endfunction()
 function(_pxr_install_rpath rpathRef NAME)
     # Get and remove the origin.
     list(GET ${rpathRef} 0 origin)
-    set(rpath ${${rpathRef}})
-    list(REMOVE_AT rpath 0)
+
+#    set(rpath ${${rpathRef}})
+#    list(REMOVE_AT rpath 0)
+    set(runpath ${${rpathRef}})
+    list(REMOVE_AT runpath 0)
 
     # Canonicalize and uniquify paths.
     set(final "")
-    foreach(path ${rpath})
+
+#    foreach(path ${rpath})
+    foreach(path ${runpath})
+
         # Absolutize on Mac.  SIP disallows relative rpaths.
         if(APPLE)
             if("${path}/" MATCHES "^[$]ORIGIN/")
@@ -1270,10 +1276,13 @@ function(_pxr_library NAME)
     # Rpath has libraries under the third party prefix and the install prefix.
     # The former is for helper libraries for a third party application and
     # the latter for core USD libraries.
-    _pxr_init_rpath(rpath "${libInstallPrefix}")
-    _pxr_add_rpath(rpath "${CMAKE_INSTALL_PREFIX}/${PXR_INSTALL_SUBDIR}/lib")
-    _pxr_add_rpath(rpath "${CMAKE_INSTALL_PREFIX}/lib")
-    _pxr_install_rpath(rpath ${NAME})
+
+    if(NOT ${NAME} STREQUAL "turretResolver")
+      _pxr_init_rpath(rpath "${libInstallPrefix}")
+      _pxr_add_rpath(rpath "${CMAKE_INSTALL_PREFIX}/${PXR_INSTALL_SUBDIR}/lib")
+      _pxr_add_rpath(rpath "${CMAKE_INSTALL_PREFIX}/lib")
+      _pxr_install_rpath(rpath ${NAME})
+    endif()
 
     #
     # Set up the install.
