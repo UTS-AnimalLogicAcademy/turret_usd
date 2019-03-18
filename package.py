@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '0.0.9'
+version = '0.0.10'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -25,8 +25,8 @@ variants = [
 	['platform-linux', 'arch-x86_64', 'usd-18.09'],
 	['platform-linux', 'arch-x86_64', 'usd-18.11'],
 	['platform-linux', 'arch-x86_64', 'usd-19.01'],
-	['platform-linux', 'arch-x86_64', 'houdini-17.0', 'usd_houdini_hdk-17.0'],
-	['platform-linux', 'arch-x86_64', 'houdini-17.5', 'usd_houdini_hdk-17.5']
+	['platform-linux', 'arch-x86_64', 'houdini-17.0', 'usd_houdini_hdk'],
+	['platform-linux', 'arch-x86_64', 'houdini-17.5', 'usd_houdini_hdk']
 ]
 
 def commands():
