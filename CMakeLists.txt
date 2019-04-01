@@ -17,6 +17,8 @@ endmacro()
 # select the correct USD lib when building variants:
 if(DEFINED ENV{USE_HDK_USD})
     set_option(USD_LIB_VARIANT HDK)
+else()
+    set_option(USD_LIB_VARIANT PXR)
 endif()
 
 set_option(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/source)
