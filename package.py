@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '0.0.11'
+version = '0.0.12'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -21,10 +21,10 @@ private_build_requires = [
 ]
 
 variants = [
-	['platform-linux', 'arch-x86_64', 'houdini-16', 'usd-0.8.5'],
-	['platform-linux', 'arch-x86_64', 'houdini-16', 'usd-18.09'],
-	['platform-linux', 'arch-x86_64', 'houdini-16', 'usd-18.11'],
-	['platform-linux', 'arch-x86_64', 'houdini-16', 'usd-19.01'],
+    ['platform-linux', 'arch-x86_64', 'usd-0.8.5'],
+	['platform-linux', 'arch-x86_64', 'usd-18.09'],
+	['platform-linux', 'arch-x86_64', 'usd-18.11'],
+	['platform-linux', 'arch-x86_64', 'usd-19.01'],
 	['platform-linux', 'arch-x86_64', 'houdini-17', 'usd_houdini_hdk']
 ]
 
