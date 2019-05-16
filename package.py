@@ -9,7 +9,7 @@ authors = [ 'ben.skinner',
             'wen.tan' ]
 
 requires = [
-    'turret_lib-0+<1',
+    'turret_lib-0.0.5+<1',
     'PyOpenGL-3.1.0',
     'jemalloc-4',
     'jinja',
@@ -24,7 +24,7 @@ variants = [
 	['platform-linux', 'arch-x86_64', 'usd-0.8.5'],
 	['platform-linux', 'arch-x86_64', 'usd-18.09'],
 	['platform-linux', 'arch-x86_64', 'usd-18.11'],
-	['platform-linux', 'arch-x86_64', 'usd-19.01'],
+	['platform-linux', 'arch-x86_64', 'usd-19.01']
 	['platform-linux', 'arch-x86_64', 'usd_houdini_hdk']
 ]
 
