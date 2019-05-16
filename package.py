@@ -9,7 +9,7 @@ authors = [ 'ben.skinner',
             'wen.tan' ]
 
 requires = [
-    'turret_lib-0+<1',
+    'turret_lib-0.0.5+<1',
     'PyOpenGL-3.1.0',
     'jemalloc-4',
     'jinja',
