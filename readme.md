@@ -1,8 +1,8 @@
 # turret_usd
 
-This library, **turret_usd**, provides a `turretResolver` class, which overrides USD's `ArDefaultResolver`. This uses the functionality provided in **turret_lib** to talk to a **turret_server** and allows custom URIs to be used within USD documents.
+This library, **turret_usd**, provides a `turretResolver` class, which overrides USD's `ArDefaultResolver`. This uses the functionality provided in [turret_lib](https://github.com/UTS-AnimalLogicAcademy/turret_lib) to talk to a [turret_server](https://github.com/UTS-AnimalLogicAcademy/turret_server) and allows custom URIs to be used within USD documents.
 
-This is one of the projects which uses **turret_lib**, the other being **turref_klf** (Katana Look Files).  
+This is one of the projects which uses [turret_lib](https://github.com/UTS-AnimalLogicAcademy/turret_lib), the other being [turref_klf](https://github.com/UTS-AnimalLogicAcademy/turret_klf).  
 
 ## Building
 
