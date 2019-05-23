@@ -68,11 +68,11 @@ TurretResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* asset
             query += "&time=" + envUsdAssetTime;
         }
 
-//        turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using ala usd resolver for file path: " + query);
+        //turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using ala usd resolver for file path: " + query);
         return m_turretClient.resolve_name(query);
     }
     else {
-//        turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using default resolver for file path: " + path);
+        //turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using default resolver for file path: " + path);
         return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
     }
 }
