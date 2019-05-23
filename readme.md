@@ -24,3 +24,6 @@ For more information check out [building.md](building.md)
 We only support running **turret_usd** on windows by having the **turret_server** running on a linux machine. Because of this you must specify the IP of the remote linux machine acting as a server.
 
  * `TURRET_SERVER_IP=172.22.15.55`
+
+## Contributing
+We use turret across almost every aspect of our USD pipeline and are constantly fixing bugs and finding time to improve turret more and more. We are however, very open to external pull-requests, and growing turret into a more versatile and robust piece of software with your help. Feel free to get in contact directly or through these GitHub repos. We'd love to talk! 
