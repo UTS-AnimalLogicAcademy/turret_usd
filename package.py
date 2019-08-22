@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '1.1.1'
+version = '1.1.2'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -25,6 +25,7 @@ variants = [
 	['platform-linux', 'arch-x86_64', 'usd-18.09'],
 	['platform-linux', 'arch-x86_64', 'usd-18.11'],
 	['platform-linux', 'arch-x86_64', 'usd-19.01'],
+	['platform-linux', 'arch-x86_64', 'usd-19.07'],
 	['platform-linux', 'arch-x86_64', 'usd_houdini_hdk']
 ]
 
