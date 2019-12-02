@@ -7,11 +7,23 @@ if(WIN32)
     find_package(Boost REQUIRED)
 endif(WIN32)
 
-if(${USD_LIB_VARIANT} STREQUAL "HDK")
-message("-- Building turret-usd for SideFX HDK USD libs")
+if(${USD_LIB_VARIANT} STREQUAL "HDK_MONOLITHIC")
+message("-- Building turret-usd for monolithic SideFX HDK USD libs")
 set(TURRET_USD_LIB_DIR $ENV{HOUDINI_ROOT}/dsolib)
 set(TURRET_USD_INC_DIR $ENV{HOUDINI_ROOT}/toolkit/include)
 set(TURRET_USD_LIBS pxr_usd_ms )
+
+elseif(${USD_LIB_VARIANT} STREQUAL "HDK")
+message("-- Building turret-usd for SideFX HDK USD libs")
+set(TURRET_USD_LIB_DIR $ENV{HOUDINI_ROOT}/dsolib)
+set(TURRET_USD_INC_DIR $ENV{HOUDINI_ROOT}/toolkit/include)
+set(TURRET_USD_LIBS 
+    pxr_arch 
+    pxr_tf 
+    pxr_plug 
+    pxr_vt 
+    pxr_ar
+)
 
 elseif(${USD_LIB_VARIANT} STREQUAL "PXR")
 message("-- Building turret-usd for Pixar USD libs")
