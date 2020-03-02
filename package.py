@@ -29,7 +29,7 @@ variants = [
 	['platform-linux', 'arch-x86_64', 'usd-19.11'],
 	['platform-linux', 'arch-x86_64', 'usd-20.02'],
 	['platform-linux', 'arch-x86_64', 'usd_houdini_hdk', 'houdini-17'],
-	['platform-linux', 'arch-x86_64', 'usd_houdini_hdk', 'houdini-18']
+	['platform-linux', 'arch-x86_64', 'usd_houdini_hdk', 'houdini-18'],
 	['platform-linux', 'arch-x86_64', 'KatanaUsdPlugins-19.11.2', 'katana-3.5.2']
 ]
 
