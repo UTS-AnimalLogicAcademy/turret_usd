@@ -25,6 +25,18 @@ set(TURRET_USD_LIBS
     pxr_ar
 )
 
+elseif(${USD_LIB_VARIANT} STREQUAL "KATANA")
+message("-- Building turret-usd for Katana USD libs")
+set(TURRET_USD_LIB_DIR $ENV{KATANA_HOME}/bin)
+set(TURRET_USD_INC_DIR $ENV{KATANA_HOME}/external/FnUSD/include)
+set(TURRET_USD_LIBS
+        Fnarch
+        Fntf
+        Fnplug
+        Fnvt
+        Fnar
+        )
+
 elseif(${USD_LIB_VARIANT} STREQUAL "PXR")
 message("-- Building turret-usd for Pixar USD libs")
 set(TURRET_USD_LIB_DIR $ENV{REZ_USD_ROOT}/lib)
