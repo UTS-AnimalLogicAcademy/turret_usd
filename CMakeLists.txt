@@ -44,7 +44,6 @@ set_option(BOOST_ROOT "$ENV{REZ_BOOST_ROOT}")
 # tbb
 set_option(TBB_ROOT_DIR "$ENV{REZ_TBB_ROOT}")
 set_option(TBB_INCLUDE_DIR "$ENV{REZ_TBB_ROOT}/include")
-set_option(TBB_LIBRARY "$ENV{REZ_TBB_ROOT}/lib/intel64/gcc4.4/")
 set_option(TBB_LIBRARY "$ENV{TBB_LIBRARIES}")
 
 set_option(PXR_BUILD_IMAGING OFF)
