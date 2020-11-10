@@ -27,6 +27,9 @@ if(DEFINED ENV{USE_HDK_USD})
 elseif(DEFINED ENV{USE_KATANA_USD})
     set_option(USD_LIB_VARIANT KATANA)
 
+elseif(DEFINED ENV{USE_NUKE_USD})
+    set_option(USD_LIB_VARIANT NUKE)
+
 else()
     set_option(USD_LIB_VARIANT PXR)
 endif()

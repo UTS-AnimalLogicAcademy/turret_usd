@@ -37,6 +37,18 @@ set(TURRET_USD_LIBS
         Fnar
         )
 
+#elseif(${USD_LIB_VARIANT} STREQUAL "NUKE")
+#    message("-- Building turret-usd for Nuke USD libs")
+#    set(TURRET_USD_LIB_DIR $ENV{NUKE_LOCATION})
+#    set(TURRET_USD_INC_DIR $ENV{REZ_NUKE_ROOT}/include)
+#    set(TURRET_USD_LIBS
+#            arch
+#            tf
+#            plug
+#            vt
+#            ar
+#            )
+
 elseif(${USD_LIB_VARIANT} STREQUAL "PXR")
 message("-- Building turret-usd for Pixar USD libs")
 set(TURRET_USD_LIB_DIR $ENV{REZ_USD_ROOT}/lib)
@@ -59,7 +71,7 @@ endif()
 
 link_directories(
         ${TURRET_USD_LIB_DIR}
-        $ENV{REZ_TBB_ROOT}/lib/intel64/gcc4.4/
+        $ENV{TBB_LIBRARIES}
 )
 
 include_directories(
@@ -84,7 +96,7 @@ pxr_plugin(${PXR_PACKAGE}
 
     INCLUDE_DIRS
         ${TURRET_USD_INC_DIR}
-        $ENV{REZ_TBB_ROOT}/include
+        $ENV{TBB_INCLUDE_DIR}
         ${Boost_INCLUDE_DIRS}
 
     PUBLIC_HEADERS
