@@ -2,14 +2,14 @@
 
 name = 'turret_usd'
 
-version = '1.1.8'
+version = '1.1.11'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
             'wen.tan' ]
 
 requires = [
-    'turret_lib-1.1.20+<2',
+    'turret_lib-1.1.22+<2',
     'PyOpenGL-3.1.0',
     'jemalloc-4',
     'jinja',
@@ -30,11 +30,13 @@ variants = [
 	['platform-linux', 'arch-x86_64', 'usd_houdini_hdk', 'houdini-17'],
 	['platform-linux', 'arch-x86_64', 'usd_houdini_hdk', 'houdini-18'],
 	['platform-linux', 'arch-x86_64', 'houdini-18'],
-	['platform-linux', 'arch-x86_64', 'KatanaUsdPlugins-19.11.3', 'katana-3.5']
+	# ['platform-linux', 'arch-x86_64', 'nuke-12.2.1'],
+    ['platform-linux', 'arch-x86_64', 'KatanaUsdPlugins-19.11.3.1', 'katana-3.6.2', 'tbb_katana']
 ]
 
 def commands():
-    env.KATANA_RESOURCES.append('{root}/Resources')
+    env.KATANA_RESOURCES.append('{root}/plugin')
     env.PXR_PLUGINPATH_NAME.append('{root}/plugin/usd/')
+
 
 
