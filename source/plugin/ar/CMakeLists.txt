@@ -37,6 +37,19 @@ set(TURRET_USD_LIBS
         Fnar
         )
 
+elseif(${USD_LIB_VARIANT} STREQUAL "MV")
+    message("-- Building turret-usd for Multiverse USD libs")
+    set(TURRET_USD_LIB_DIR $ENV{MULTIVERSE_HOME}/lib/python/mvpxr)
+    set(TURRET_USD_INC_DIR $ENV{MULTIVERSE_HOME}/include?)
+    set(TURRET_USD_LIBS
+            _arch
+            _tf
+            _plug
+            _vt
+            _ar
+            )
+
+
 #elseif(${USD_LIB_VARIANT} STREQUAL "NUKE")
 #    message("-- Building turret-usd for Nuke USD libs")
 #    set(TURRET_USD_LIB_DIR $ENV{NUKE_LOCATION})
