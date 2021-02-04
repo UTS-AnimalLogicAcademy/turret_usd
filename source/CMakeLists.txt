@@ -1,10 +1,6 @@
 project(usd)
 
-if (WIN32)
-    cmake_minimum_required(VERSION 3.1.1)
-else()
-    cmake_minimum_required(VERSION 2.8.8)
-endif()
+cmake_minimum_required(VERSION 3.12)
 
 if (NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
     if (WIN32)
@@ -17,18 +13,12 @@ if (NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
     endif()
 endif()
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/defaults
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cmake/defaults
                       ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
                       ${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros)
 
 include(Options)
-
-# Versions prior to 3.1.0 on Unix platforms built archive libraries
-# incorrectly.  Require at least that version if necessary.
-if((NOT BUILD_SHARED_LIBS OR PXR_BUILD_MONOLITHIC) AND NOT WIN32)
-    cmake_minimum_required(VERSION 3.1.0)
-endif()
-
 include(ProjectDefaults)
 include(Packages)
 
@@ -49,19 +39,16 @@ set(CMAKE_CXX_FLAGS "${_PXR_CXX_FLAGS} ${CMAKE_CXX_FLAGS}")
 
 include(Public)
 
+pxr_toplevel_prologue()
+
 add_subdirectory(plugin)
 
-function(_addIfExists pkg pkgCmakeLists)
-    if (EXISTS ${pkgCmakeLists})
-        add_subdirectory(${pkg})
-    else()
-        message(WARNING "Specified third party package '${pkgName}' was not found. Please check that '${pkgCmakeLists}' exists")
-    endif()
-endfunction()
+if (${PXR_BUILD_PRMAN_PLUGIN})
+    add_subdirectory(third_party/renderman-${RENDERMAN_VERSION_MAJOR})
+endif()
 
-function(_enableThirdPartyPlugin identifier)
-    set(pkg third_party/${identifier}) 
-    set(pkgCmakeLists ${CMAKE_CURRENT_SOURCE_DIR}/${pkg}/CMakeLists.txt)
-    _addIfExists(${pkg} ${pkgCmakeLists})
-endfunction()
+if (PXR_BUILD_DOCUMENTATION)
+    pxr_build_documentation()
+endif()
 
+pxr_toplevel_epilogue()

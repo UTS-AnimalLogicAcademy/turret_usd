@@ -1,5 +1,5 @@
 #
-# Copyright 2016 Pixar
+# Copyright 2017 Pixar
 #
 # Licensed under the Apache License, Version 2.0 (the "Apache License")
 # with the following modification; you may not use this file except in
@@ -21,16 +21,30 @@
 # KIND, either express or implied. See the Apache License for the specific
 # language governing permissions and limitations under the Apache License.
 #
+#
+# Usage:
+#   shebang shebang-str source.py dest.py
+#   shebang file output.cmd
+#
+# The former substitutes '/pxrpythonsubst' in <source.py> with <shebang-str>
+# and writes the result to <dest.py>.  The latter generates a file named
+# <output.cmd> with the contents '@python "%~dp0<file>"';  this is a
+# Windows command script to execute "python <file>" where <file> is in
+# the same directory as the command script.
 
-include(gccclangshareddefaults)
+from __future__ import print_function
+import sys
 
-if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 6)
-    if (Boost_VERSION LESS 106200)
-        # gcc-6 introduces a placement-new warning, which causes problems
-        # in boost-1.61 or less, in the boost::function code.
-        # boost-1.62 fixes the warning
-        _disable_warning("placement-new")
-    endif()
-endif()
+if len(sys.argv) < 3 or len(sys.argv) > 4:
+    print("Usage: %s {shebang-str source.py dest|file output.cmd}" % sys.argv[0])
+    sys.exit(1)
 
-set(_PXR_CXX_FLAGS "${_PXR_GCC_CLANG_SHARED_CXX_FLAGS}")
+if len(sys.argv) == 3:
+    with open(sys.argv[2], 'w') as f:
+        print('@python "%%~dp0%s" %%*' % (sys.argv[1], ), file=f)
+
+else:
+    with open(sys.argv[2], 'r') as s:
+        with open(sys.argv[3], 'w') as d:
+            for line in s:
+                d.write(line.replace('/pxrpythonsubst', sys.argv[1]))

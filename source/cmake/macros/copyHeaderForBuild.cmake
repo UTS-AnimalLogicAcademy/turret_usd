@@ -1,5 +1,5 @@
 #
-# Copyright 2016 Pixar
+# Copyright 2018 Pixar
 #
 # Licensed under the Apache License, Version 2.0 (the "Apache License")
 # with the following modification; you may not use this file except in
@@ -21,16 +21,9 @@
 # KIND, either express or implied. See the Apache License for the specific
 # language governing permissions and limitations under the Apache License.
 #
+file(TO_NATIVE_PATH  ${infile} INFILE)
+file(TO_NATIVE_PATH  ${outfile} OUTFILE)
 
-include(gccclangshareddefaults)
-
-if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 6)
-    if (Boost_VERSION LESS 106200)
-        # gcc-6 introduces a placement-new warning, which causes problems
-        # in boost-1.61 or less, in the boost::function code.
-        # boost-1.62 fixes the warning
-        _disable_warning("placement-new")
-    endif()
-endif()
-
-set(_PXR_CXX_FLAGS "${_PXR_GCC_CLANG_SHARED_CXX_FLAGS}")
+file(READ "${INFILE}" _tmp_file_content)
+file(WRITE "${OUTFILE}" "\#line 1 ${infile}\n")
+file(APPEND "${OUTFILE}" "${_tmp_file_content}")

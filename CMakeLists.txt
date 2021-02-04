@@ -16,12 +16,19 @@ endmacro()
 # At ALA, our usd_houdini_hdk package sets an env var, which we use to automatically
 # select the correct USD lib when building variants:
 if(DEFINED ENV{USE_HDK_USD})
+    message(1)
     if(DEFINED ENV{USE_HDK_MONOLITHIC_USD})
+        message(2)
         if($ENV{USE_HDK_MONOLITHIC_USD} STREQUAL "1")
+            message(3)
             set_option(USD_LIB_VARIANT HDK_MONOLITHIC)
         else()
+            message(4)
             set_option(USD_LIB_VARIANT HDK)
         endif()
+
+    else()
+        message(5)
     endif()
 
 elseif(DEFINED ENV{USE_KATANA_USD})

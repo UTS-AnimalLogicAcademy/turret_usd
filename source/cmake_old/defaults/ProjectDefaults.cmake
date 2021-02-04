@@ -21,16 +21,31 @@
 # KIND, either express or implied. See the Apache License for the specific
 # language governing permissions and limitations under the Apache License.
 #
-
-include(gccclangshareddefaults)
-
-if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 6)
-    if (Boost_VERSION LESS 106200)
-        # gcc-6 introduces a placement-new warning, which causes problems
-        # in boost-1.61 or less, in the boost::function code.
-        # boost-1.62 fixes the warning
-        _disable_warning("placement-new")
-    endif()
+if(APPLE)
+    set(OSX_ARCHITECTURES "x86_64" CACHE STRING "Build architectures for OSX")
+    set(CMAKE_MACOSX_RPATH ON)
+    set(CMAKE_SKIP_BUILD_RPATH FALSE)
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+    set(CMAKE_DYLIB_INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib" CACHE STRING "install_name path for dylib.")
+    list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
+    message(WARNING "Building USD on Mac OSX is currently experimental.")
+elseif(WIN32)
+    # Windows specific set up
+    message(WARNING "Building USD on Windows is currently experimental.")
 endif()
 
-set(_PXR_CXX_FLAGS "${_PXR_GCC_CLANG_SHARED_CXX_FLAGS}")
+# Allow local includes from source directory.
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+# Turn on folder usage
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+# Default build type
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release")
+endif()
+
+if (PXR_BUILD_TESTS)
+    # Enable CTest
+    enable_testing()
+endif()
