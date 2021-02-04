@@ -37,9 +37,6 @@ elseif(DEFINED ENV{USE_KATANA_USD})
 elseif(DEFINED ENV{USE_NUKE_USD})
     set_option(USD_LIB_VARIANT NUKE)
 
-#elseif(DEFINED ENV{USE_MULTIVERSE_USD})
-#    set_option(USD_LIB_VARIANT MV)
-
 else()
     set_option(USD_LIB_VARIANT PXR)
 endif()

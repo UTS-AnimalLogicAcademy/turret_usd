@@ -21,16 +21,22 @@
 # KIND, either express or implied. See the Apache License for the specific
 # language governing permissions and limitations under the Apache License.
 #
-
-include(gccclangshareddefaults)
-
-if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 6)
-    if (Boost_VERSION LESS 106200)
-        # gcc-6 introduces a placement-new warning, which causes problems
-        # in boost-1.61 or less, in the boost::function code.
-        # boost-1.62 fixes the warning
-        _disable_warning("placement-new")
-    endif()
+# Jinja2 is a python library, ensure that it is available for use with our
+# specified version of Python.
+#
+if (NOT PYTHON_EXECUTABLE)
+    return()
 endif()
 
-set(_PXR_CXX_FLAGS "${_PXR_GCC_CLANG_SHARED_CXX_FLAGS}")
+execute_process(
+    COMMAND 
+        "${PYTHON_EXECUTABLE}" "-c" "import jinja2"
+    RESULT_VARIABLE
+        jinja2ImportResult 
+)
+if (jinja2ImportResult EQUAL 0)
+    message(STATUS "Found Jinja2")
+    set(JINJA2_FOUND True)
+endif()
+
+

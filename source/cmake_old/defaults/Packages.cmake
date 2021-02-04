@@ -38,72 +38,32 @@ find_package(Threads REQUIRED)
 set(PXR_THREAD_LIBS "${CMAKE_THREAD_LIBS_INIT}")
 
 if(PXR_ENABLE_PYTHON_SUPPORT)
-    # --Python.
-    if(PXR_USE_PYTHON_3)
-        find_package(PythonInterp 3.0 REQUIRED)
-        find_package(PythonLibs 3.0 REQUIRED)
-    else()
-        find_package(PythonInterp 2.7 REQUIRED)
-        find_package(PythonLibs 2.7 REQUIRED)
-    endif()
+    # --Python.  We are generally but not completely 2.6 compliant.
+    find_package(PythonInterp 2.7 REQUIRED)
+    find_package(PythonLibs 2.7 REQUIRED)
 
+    # --Boost
     find_package(Boost
         COMPONENTS
+            filesystem
             program_options
+            python
+            system
         REQUIRED
     )
-
-    # Set up a version string for comparisons. This is available
-    # as Boost_VERSION_STRING in CMake 3.14+
-    set(boost_version_string "${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
-
-    if (((${boost_version_string} VERSION_GREATER_EQUAL "1.67") AND
-         (${boost_version_string} VERSION_LESS "1.70")) OR
-        ((${boost_version_string} VERSION_GREATER_EQUAL "1.70") AND
-          Boost_NO_BOOST_CMAKE))
-        # As of boost 1.67 the boost_python component name includes the
-        # associated Python version (e.g. python27, python36). After boost 1.70
-        # the built-in cmake_old files will deal with this. If we are using boost
-        # that does not have working cmake_old files, or we are using a new boost
-        # and not using cmake_old's boost files, we need to do the below.
-        #
-        # Find the component under the versioned name and then set the generic
-        # Boost_PYTHON_LIBRARY variable so that we don't have to duplicate this
-        # logic in each library's CMakeLists_Old.txt.
-        set(python_version_nodot "${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}")
-        find_package(Boost
-            COMPONENTS
-                python${python_version_nodot}
-            REQUIRED
-        )
-        set(Boost_PYTHON_LIBRARY "${Boost_PYTHON${python_version_nodot}_LIBRARY}")
-    else()
-        find_package(Boost
-            COMPONENTS
-                python
-            REQUIRED
-        )
-    endif()
-
-    # --Jinja2
-    find_package(Jinja2)
+    if(UNIX)
+        # --Jinja2
+        find_package(Jinja2)
+    endif(UNIX)
 else()
-    # -- Python
-    # A Python interpreter is still required for certain build options.
-    if (PXR_BUILD_DOCUMENTATION OR PXR_BUILD_TESTS
-        OR PXR_VALIDATE_GENERATED_CODE)
-
-        if(PXR_USE_PYTHON_3)
-            find_package(PythonInterp 3.0 REQUIRED)
-        else()
-            find_package(PythonInterp 2.7 REQUIRED)
-        endif()
-    endif()
+    find_package(PythonInterp 2.7 REQUIRED)
  
     # --Boost
     find_package(Boost
         COMPONENTS
+            filesystem
             program_options
+            system
         REQUIRED
     )
 endif()
@@ -128,28 +88,6 @@ endif()
 
 # Developer Options Package Requirements
 # ----------------------------------------------
-if (PXR_BUILD_DOCUMENTATION)
-    find_program(DOXYGEN_EXECUTABLE
-        NAMES doxygen
-    )
-    if (EXISTS ${DOXYGEN_EXECUTABLE})                                        
-        message(STATUS "Found doxygen: ${DOXYGEN_EXECUTABLE}") 
-    else()
-        message(FATAL_ERROR 
-                "doxygen not found, required for PXR_BUILD_DOCUMENTATION")
-    endif()
-
-    find_program(DOT_EXECUTABLE
-        NAMES dot
-    )
-    if (EXISTS ${DOT_EXECUTABLE})
-        message(STATUS "Found dot: ${DOT_EXECUTABLE}") 
-    else()
-        message(FATAL_ERROR
-                "dot not found, required for PXR_BUILD_DOCUMENTATION")
-    endif()
-endif()
-
 if (PXR_VALIDATE_GENERATED_CODE)
     find_package(BISON 2.4.1 EXACT)
     # Flex 2.5.39+ is required, generated API is generated incorrectly in
@@ -158,34 +96,22 @@ if (PXR_VALIDATE_GENERATED_CODE)
     find_package(FLEX 2.5.39 EXACT)
 endif()
 
+
 # Imaging Components Package Requirements
 # ----------------------------------------------
 
 if (PXR_BUILD_IMAGING)
+    # --OpenEXR
+    find_package(OpenEXR REQUIRED)
     # --OpenImageIO
     if (PXR_BUILD_OPENIMAGEIO_PLUGIN)
-        find_package(OpenEXR REQUIRED)
         find_package(OpenImageIO REQUIRED)
         add_definitions(-DPXR_OIIO_PLUGIN_ENABLED)
     endif()
-    # --OpenColorIO
-    if (PXR_BUILD_OPENCOLORIO_PLUGIN)
-        find_package(OpenColorIO REQUIRED)
-        add_definitions(-DPXR_OCIO_PLUGIN_ENABLED)
-    endif()
     # --OpenGL
     if (PXR_ENABLE_GL_SUPPORT)
-        # Prefer legacy GL library over GLVND libraries if both
-        # are installed.
-        if (POLICY CMP0072)
-            cmake_policy(SET CMP0072 OLD)
-        endif()
         find_package(OpenGL REQUIRED)
         find_package(GLEW REQUIRED)
-    endif()
-    # --Metal
-    if (PXR_ENABLE_METAL_SUPPORT)
-        add_definitions(-DPXR_METAL_SUPPORT_ENABLED)
     endif()
     # --Opensubdiv
     set(OPENSUBDIV_USE_GPU ${PXR_ENABLE_GL_SUPPORT})
@@ -194,12 +120,6 @@ if (PXR_BUILD_IMAGING)
     if (PXR_ENABLE_PTEX_SUPPORT)
         find_package(PTex REQUIRED)
         add_definitions(-DPXR_PTEX_SUPPORT_ENABLED)
-    endif()
-    # --OpenVDB
-    if (PXR_ENABLE_OPENVDB_SUPPORT)
-        find_package(OpenEXR REQUIRED)
-        find_package(OpenVDB REQUIRED)
-        add_definitions(-DPXR_OPENVDB_SUPPORT_ENABLED)
     endif()
     # --X11
     if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
@@ -220,8 +140,21 @@ endif()
 
 # Third Party Plugin Package Requirements
 # ----------------------------------------------
-if (PXR_BUILD_PRMAN_PLUGIN)
-    find_package(Renderman REQUIRED)
+if (PXR_BUILD_KATANA_PLUGIN)
+    find_package(KatanaAPI REQUIRED)
+    find_package(Boost
+        COMPONENTS
+        thread
+        REQUIRED
+        )
+endif()
+
+if (PXR_BUILD_MAYA_PLUGIN)
+    find_package(Maya REQUIRED)
+endif()
+
+if (PXR_BUILD_HOUDINI_PLUGIN)
+    find_package(Houdini REQUIRED)
 endif()
 
 if (PXR_BUILD_ALEMBIC_PLUGIN)
@@ -236,17 +169,12 @@ if (PXR_BUILD_ALEMBIC_PLUGIN)
     endif()
 endif()
 
-if (PXR_BUILD_DRACO_PLUGIN)
-    find_package(Draco REQUIRED)
-endif()
-
 if (PXR_BUILD_MATERIALX_PLUGIN)
     find_package(MaterialX REQUIRED)
 endif()
 
 if(PXR_ENABLE_OSL_SUPPORT)
     find_package(OSL REQUIRED)
-    find_package(OpenEXR REQUIRED)
 endif()
 
 # ----------------------------------------------
