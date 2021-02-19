@@ -24,7 +24,7 @@ include(Packages)
 
 # This has to be defined after Packages is included, because it relies on the
 # discovered path to the python executable.
-set(PXR_PYTHON_SHEBANG "${PYTHON_EXECUTABLE}" 
+set(PXR_PYTHON_SHEBANG "${PYTHON_EXECUTABLE}"
     CACHE 
     STRING
     "Replacement path for Python #! line."
@@ -39,7 +39,7 @@ set(CMAKE_CXX_FLAGS "${_PXR_CXX_FLAGS} ${CMAKE_CXX_FLAGS}")
 
 include(Public)
 
-pxr_toplevel_prologue()
+#pxr_toplevel_prologue() # if this is uncommented, we seem to get issues when built against usd-20.02 and below
 
 add_subdirectory(plugin)
 
@@ -50,5 +50,3 @@ endif()
 if (PXR_BUILD_DOCUMENTATION)
     pxr_build_documentation()
 endif()
-
-pxr_toplevel_epilogue()

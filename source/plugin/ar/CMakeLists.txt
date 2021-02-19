@@ -102,7 +102,7 @@ if(WIN32)
         )
 endif(WIN32)
 
-pxr_library(${PXR_PACKAGE}
+pxr_plugin(${PXR_PACKAGE}
     LIBRARIES
         ${TURRET_USD_LIBS}
         ${Boost_PYTHON_LIBRARY}
