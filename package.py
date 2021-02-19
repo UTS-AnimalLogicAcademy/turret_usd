@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '1.3.1'
+version = '1.2.4'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
