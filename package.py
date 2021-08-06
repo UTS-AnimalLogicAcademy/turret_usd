@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '1.2.4'
+version = '1.2.5'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -27,7 +27,7 @@ variants = [
     # ['platform-linux', 'arch-x86_64', 'nuke-12.2.1', '!katana'], # usd-19.11
 
     ['platform-linux', 'arch-x86_64', 'usd-20.08', 'tbb-2017', 'boost-1.61', '!katana'],
-    ['platform-linux', 'arch-x86_64', 'houdini-18.5', 'devtoolset-6', 'boost-1.72', 'tbb-2019.9', '!katana'], # usd-20.08
+    ['platform-linux', 'arch-x86_64', 'houdini-18.5', 'devtoolset-7', 'boost-1.72', 'tbb-2019.9', '!katana'], # usd-20.08
 
 ]
 
