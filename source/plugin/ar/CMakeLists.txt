@@ -11,7 +11,7 @@ if(${USD_LIB_VARIANT} STREQUAL "HDK_MONOLITHIC")
 message("-- Building turret-usd for monolithic SideFX HDK USD libs")
 set(TURRET_USD_LIB_DIR $ENV{HOUDINI_ROOT}/dsolib)
 set(TURRET_USD_INC_DIR $ENV{HOUDINI_ROOT}/toolkit/include)
-set(TURRET_USD_LIBS pxr_usd_ms )
+set(TURRET_USD_LIBS pxr_usd )
 
 elseif(${USD_LIB_VARIANT} STREQUAL "HDK")
 message("-- Building turret-usd for SideFX HDK USD libs")
