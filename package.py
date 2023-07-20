@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '1.2.11'
+version = '1.2.12'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -25,7 +25,7 @@ variants = [
     ['platform-linux', 'arch-x86_64', 'usd-19.11', 'tbb-2017.0', 'boost-1.55', '!katana'], # maya 2019
     ['platform-linux', 'arch-x86_64', 'houdini-18.0', 'devtoolset-6', 'boost-1.61', 'tbb-2019.0', '!katana'], # usd-19.11
     ['platform-linux', 'arch-x86_64', 'houdini-19.0', 'devtoolset-6', 'boost-1.72', 'tbb-2019.9', '!katana'], # usd-19.11
-    ['platform-linux', 'arch-x86_64', 'usd-21.05', 'boost-1.70', 'katana-4.5.2', 'tbb_katana-2019.6'], # usd-21.05 katana 4.5
+    ['platform-linux', 'arch-x86_64', 'boost_katana-1.70', 'katana-4.5.2', 'tbb_katana-2019.6'], # usd_katana-21.05 katana 4.5
     # ['platform-linux', 'arch-x86_64', 'nuke-12.2.1', '!katana'], # usd-19.11
 
     ['platform-linux', 'arch-x86_64', 'usd-20.08', 'tbb-2017', 'boost-1.61', '!katana'],
@@ -37,4 +37,5 @@ variants = [
 def commands():
     env.KATANA_RESOURCES.append('{root}/plugin')
     env.PXR_PLUGINPATH_NAME.append('{root}/plugin/usd/')
+    env.FNPXR_PLUGINPATH.append('{root}/plugin/usd/')
     

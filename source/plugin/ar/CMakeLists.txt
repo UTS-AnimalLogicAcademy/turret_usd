@@ -29,6 +29,15 @@ elseif(${USD_LIB_VARIANT} STREQUAL "KATANA")
 message("-- Building turret-usd for Katana USD libs")
 set(TURRET_USD_LIB_DIR $ENV{KATANA_HOME}/bin)
 set(TURRET_USD_INC_DIR $ENV{KATANA_HOME}/external/FnUSD/include)
+if($ENV{REZ_KATANA_MAJOR_VERSION} GREATER 3)
+set(TURRET_USD_LIBS
+        fnarch
+        fntf
+        fnplug
+        fnvt
+        fnar
+        )
+else()
 set(TURRET_USD_LIBS
         Fnarch
         Fntf
@@ -36,6 +45,7 @@ set(TURRET_USD_LIBS
         Fnvt
         Fnar
         )
+endif()
 
 elseif(${USD_LIB_VARIANT} STREQUAL "MV")
     message("-- Building turret-usd for Multiverse USD libs")
