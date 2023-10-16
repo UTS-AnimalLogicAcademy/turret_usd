@@ -73,6 +73,18 @@ elseif(${USD_LIB_VARIANT} STREQUAL "NUKE")
             )
 
 elseif(${USD_LIB_VARIANT} STREQUAL "PXR")
+if($ENV{REZ_USD_MAJOR_VERSION} GREATER_EQUAL 21)
+message("-- Building turret-usd for Pixar USD libs")
+set(TURRET_USD_LIB_DIR $ENV{REZ_USD_ROOT}/lib)
+set(TURRET_USD_INC_DIR $ENV{REZ_USD_ROOT}/include)
+set(TURRET_USD_LIBS
+    usd_arch
+    usd_tf
+    usd_plug
+    usd_vt
+    usd_ar
+)
+else()
 message("-- Building turret-usd for Pixar USD libs")
 set(TURRET_USD_LIB_DIR $ENV{REZ_USD_ROOT}/lib)
 set(TURRET_USD_INC_DIR $ENV{REZ_USD_ROOT}/include)
@@ -83,6 +95,7 @@ set(TURRET_USD_LIBS
     vt
     ar
 )
+endif()
 
 elseif(${USD_LIB_VARIANT} STREQUAL "PXR_MONOLITHIC")
 message("-- Building turret-usd for monlithic Pixar USD libs")

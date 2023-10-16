@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '1.2.13'
+version = '1.2.14'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -31,7 +31,7 @@ variants = [
     ['platform-linux', 'arch-x86_64', 'usd-20.08', 'tbb-2017', 'boost-1.61', '!katana'],
     ['platform-linux', 'arch-x86_64', 'houdini-18.5', 'devtoolset-7', 'boost-1.72', 'tbb-2019.9', '!katana', '!nuke'], # usd-20.08
     ['platform-linux', 'arch-x86_64', 'usd-20.11', 'tbb-2017', 'boost-1.61', '!katana', '!nuke'], # usd-20.11, maya-2022
-    #['platform-linux', 'arch-x86_64', 'usd-21.11', 'tbb-2020.3', 'boost-1.72', '!katana', '!nuke'], # usd-21.11, maya-2022
+    ['platform-linux', 'arch-x86_64', 'usd-21.11', 'tbb-2020.3', 'boost-1.72', '!katana', '!nuke'], # usd-21.11, maya-2022
     #['platform-linux', 'arch-x86_64', 'usd-20.11', 'tbb-2020.3', 'boost-1.76', '!katana'], # usd-20.11, maya-2023
     ['platform-linux', 'arch-x86_64', 'tbb-2018.4', 'boost-1.66', 'nuke-12', '!katana'], # usd-20.11, nuke-12.2v1
 
