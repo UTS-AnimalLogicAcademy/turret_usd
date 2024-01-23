@@ -1,5 +1,14 @@
 cmake_minimum_required (VERSION 3.2)
 
+set(Python_ROOT_DIR $ENV{REZ_PYTHON_ROOT}/miniconda$ENV{REZ_PYTHON_MAJOR_VERSION})
+set(Python_INCLUDE_DIR "$ENV{PYTHON_INCLUDE_DIRS}")
+set(Python_LIBRARY "$ENV{PYTHON_LIBRARIES}")
+
+set(REQUIRED_PY_VERSION $ENV{REZ_PYTHON_MAJOR_VERSION}.$ENV{REZ_PYTHON_MINOR_VERSION})
+
+include(CMakePrintHelpers)
+cmake_print_variables(Python_ROOT_DIR)
+
 if(WIN32)
         add_definitions( -DBOOST_ALL_NO_LIB )
 endif(WIN32)
@@ -34,8 +43,8 @@ if(DEFINED ENV{USE_HDK_USD})
 elseif(DEFINED ENV{USE_KATANA_USD})
     set_option(USD_LIB_VARIANT KATANA)
 
-#elseif(DEFINED ENV{USE_MAYA_USD})
-#    set_option(USD_LIB_VARIANT MAYA)
+elseif(DEFINED ENV{USE_MAYA_USD})
+    set_option(USD_LIB_VARIANT MAYA)
 
 elseif(DEFINED ENV{USE_NUKE_USD})
     set_option(USD_LIB_VARIANT NUKE)
@@ -43,6 +52,8 @@ elseif(DEFINED ENV{USE_NUKE_USD})
 else()
     set_option(USD_LIB_VARIANT PXR)
 endif()
+
+cmake_print_variables(USD_LIB_VARIANT)
 
 set_option(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/source)
 

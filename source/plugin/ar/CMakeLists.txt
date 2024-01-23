@@ -72,6 +72,18 @@ elseif(${USD_LIB_VARIANT} STREQUAL "NUKE")
             ar
             )
 
+elseif(${USD_LIB_VARIANT} STREQUAL "MAYA")
+    message("-- Building turret-usd for Maya USD libs")
+    set(TURRET_USD_LIB_DIR $ENV{MAYA_USD_ROOT}/mayausd/USD/lib)
+    set(TURRET_USD_INC_DIR $ENV{REZ_MAYA_ROOT}/include)
+    set(TURRET_USD_LIBS
+            arch
+            tf
+            plug
+            vt
+            ar
+            )
+
 elseif(${USD_LIB_VARIANT} STREQUAL "PXR")
 if($ENV{REZ_USD_MAJOR_VERSION} GREATER_EQUAL 21)
 message("-- Building turret-usd for Pixar USD libs")

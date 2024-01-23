@@ -47,7 +47,14 @@ option(PXR_BUILD_PRMAN_PLUGIN "Build the PRMan imaging plugin" OFF)
 option(PXR_BUILD_MATERIALX_PLUGIN "Build the MaterialX plugin for USD" OFF)
 option(PXR_BUILD_DOCUMENTATION "Generate doxygen documentation" OFF)
 option(PXR_ENABLE_PYTHON_SUPPORT "Enable Python based components for USD" ON)
-option(PXR_USE_PYTHON_3 "Build Python bindings for Python 3" OFF)
+
+if($ENV{REZ_PYTHON_MAJOR_VERSION} EQUAL 3)
+    option(PXR_USE_PYTHON_3 "Build Python bindings for Python 3" ON)
+else()
+    option(PXR_USE_PYTHON_3 "Build Python bindings for Python 3" OFF)
+endif()
+
+
 option(PXR_ENABLE_HDF5_SUPPORT "Enable HDF5 backend in the Alembic plugin for USD" ON)
 option(PXR_ENABLE_OSL_SUPPORT "Enable OSL (OpenShadingLanguage) based components" OFF)
 option(PXR_ENABLE_PTEX_SUPPORT "Enable Ptex support" ON)

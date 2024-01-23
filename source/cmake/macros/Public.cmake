@@ -34,7 +34,7 @@ function(pxr_build_documentation)
     add_custom_target(
         documentation
         ALL
-        COMMAND ${PYTHON_EXECUTABLE} ${GEN_SCRIPT} ${PXR_SOURCE_DIR} ${THIRD_PARTY_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${DOCS_DIR} ${DOXYGEN_EXECUTABLE} ${DOT_EXECUTABLE}
+        COMMAND ${Python_EXECUTABLE} ${GEN_SCRIPT} ${PXR_SOURCE_DIR} ${THIRD_PARTY_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${DOCS_DIR} ${DOXYGEN_EXECUTABLE} ${DOT_EXECUTABLE}
         DEPENDS ${CMAKE_BINARY_DIR}/include/pxr/pxr.h
     )
 
@@ -92,7 +92,7 @@ function(pxr_python_bin BIN_NAME)
         DEPENDS ${infile}
         COMMENT "Substituting Python shebang"
         COMMAND
-            ${PYTHON_EXECUTABLE}
+            ${Python_EXECUTABLE}
             ${PROJECT_SOURCE_DIR}/cmake/macros/shebang.py
             ${PXR_PYTHON_SHEBANG}
             ${infile}
@@ -114,7 +114,7 @@ function(pxr_python_bin BIN_NAME)
             OUTPUT ${outfile}.cmd
             COMMENT "Creating Python cmd wrapper"
             COMMAND
-                ${PYTHON_EXECUTABLE}
+                ${Python_EXECUTABLE}
                 ${PROJECT_SOURCE_DIR}/cmake/macros/shebang.py
                 ${BIN_NAME}
                 ${outfile}.cmd
@@ -793,14 +793,14 @@ function(pxr_register_test TEST_NAME)
     if (bt_CUSTOM_PYTHON)
         set(testCmd "${bt_CUSTOM_PYTHON} ${bt_COMMAND}")
     elseif (bt_PYTHON)
-        set(testCmd "${PYTHON_EXECUTABLE} ${bt_COMMAND}")
+        set(testCmd "${Python_EXECUTABLE} ${bt_COMMAND}")
     else()
         set(testCmd "${bt_COMMAND}")
     endif()
 
     add_test(
         NAME ${TEST_NAME}
-        COMMAND ${PYTHON_EXECUTABLE} ${testWrapperCmd}
+        COMMAND ${Python_EXECUTABLE} ${testWrapperCmd}
                 "--env-var=PYTHONPATH=${_testPythonPath}" ${testCmd}
     )
 

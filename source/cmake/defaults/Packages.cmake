@@ -40,11 +40,9 @@ set(PXR_THREAD_LIBS "${CMAKE_THREAD_LIBS_INIT}")
 if(PXR_ENABLE_PYTHON_SUPPORT)
     # --Python.
     if(PXR_USE_PYTHON_3)
-        find_package(PythonInterp 3.0 REQUIRED)
-        find_package(PythonLibs 3.0 REQUIRED)
+        find_package(Python ${REQUIRED_PY_VERSION} COMPONENTS Interpreter Development REQUIRED)
     else()
-        find_package(PythonInterp 2.7 REQUIRED)
-        find_package(PythonLibs 2.7 REQUIRED)
+        find_package(Python ${REQUIRED_PY_VERSION} COMPONENTS Interpreter Development REQUIRED)
     endif()
 
     find_package(Boost
@@ -69,7 +67,7 @@ if(PXR_ENABLE_PYTHON_SUPPORT)
         # Find the component under the versioned name and then set the generic
         # Boost_PYTHON_LIBRARY variable so that we don't have to duplicate this
         # logic in each library's CMakeLists_Old.txt.
-        set(python_version_nodot "${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}")
+        set(python_version_nodot "${Python_VERSION_MAJOR}${Python_VERSION_MINOR}")
         find_package(Boost
             COMPONENTS
                 python${python_version_nodot}
@@ -93,9 +91,9 @@ else()
         OR PXR_VALIDATE_GENERATED_CODE)
 
         if(PXR_USE_PYTHON_3)
-            find_package(PythonInterp 3.0 REQUIRED)
+            find_package(Python3 ${REQUIRED_PY_VERSION} COMPONENTS Interpreter REQUIRED)
         else()
-            find_package(PythonInterp 2.7 REQUIRED)
+            find_package(Python2 ${REQUIRED_PY_VERSION} COMPONENTS Interpreter REQUIRED)
         endif()
     endif()
  

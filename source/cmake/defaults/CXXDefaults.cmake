@@ -93,4 +93,4 @@ else()
     set(PXR_PYTHON_SUPPORT_ENABLED "0")
 endif()
 
-include_directories(SYSTEM ${PYTHON_INCLUDE_DIR})
+include_directories(SYSTEM ${Python_INCLUDE_DIR})

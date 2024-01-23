@@ -24,13 +24,13 @@
 # Jinja2 is a python library, ensure that it is available for use with our
 # specified version of Python.
 #
-if (NOT PYTHON_EXECUTABLE)
+if (NOT Python_EXECUTABLE)
     return()
 endif()
 
 execute_process(
     COMMAND 
-        "${PYTHON_EXECUTABLE}" "-c" "import jinja2"
+        "${Python_EXECUTABLE}" "-c" "import jinja2"
     RESULT_VARIABLE
         jinja2ImportResult 
 )
