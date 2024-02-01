@@ -35,36 +35,26 @@ PXR_NAMESPACE_OPEN_SCOPE
 class TurretResolver
     : public ArDefaultResolver
 {
-public:
-    TurretResolver();
-    virtual ~TurretResolver();
+    public:
+        TurretResolver();
+        AR_API
+        virtual ~TurretResolver();
 
-AR_API
-    virtual std::string GetExtension(const std::string& path) override;
-AR_API
-    virtual std::string Resolve(const std::string& path) override;
+    protected:
+        AR_API
+        std::string _GetExtension(const std::string& assetPath) const override;
+        AR_API
+        ArResolvedPath _Resolve(const std::string& assetPath) const override;
+        AR_API
+        ArAssetInfo _GetAssetInfo(const std::string& assetPath,
+            const ArResolvedPath& resolvedPath) const override;
+        AR_API
+        ArTimestamp _GetModificationTimestamp(
+            const std::string& assetPath,
+            const ArResolvedPath& resolvedPath) const override;
 
-AR_API
-    virtual std::string ResolveWithAssetInfo(
-        const std::string& path, 
-        ArAssetInfo* assetInfo) override;
-AR_API
-    virtual void UpdateAssetInfo(
-       const std::string& identifier,
-       const std::string& filePath,
-       const std::string& fileVersion,
-       ArAssetInfo* assetInfo) override;
-AR_API
-    virtual VtValue GetModificationTimestamp(
-        const std::string& path,
-        const std::string& resolvedPath) override;
-AR_API
-    virtual bool FetchToLocalResolvedPath(
-        const std::string& path,
-        const std::string& resolvedPath) override;
-
-private:
-    turret_client::turretClient m_turretClient;
+    private:
+        mutable turret_client::turretClient m_turretClient;
 };
 
 PXR_NAMESPACE_CLOSE_SCOPE

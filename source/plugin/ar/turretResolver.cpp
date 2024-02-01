@@ -50,59 +50,39 @@ TurretResolver::~TurretResolver() {
     std::cout << "TURRET USD Resolver - Destroyed Resolver\n\n";
 }
 
-std::string TurretResolver::Resolve(const std::string& path) {
-    return TurretResolver::ResolveWithAssetInfo(path, /* assetInfo = */ nullptr);
-}
+ArResolvedPath TurretResolver::_Resolve(const std::string& assetPath) const{
+    std::string query = assetPath;
 
-std::string
-TurretResolver::ResolveWithAssetInfo(const std::string& path, ArAssetInfo* assetInfo) {
-    // Check if path provided is of tank schema
-    if(m_turretClient.matches_schema(path)) {
-        std::string query = path;
-
-        // Check for USD_ASSET_TIME env var
-        const std::string envUsdAssetTime = TfGetenv("USD_ASSET_TIME");
-
-        // If time var exists, append asset time to query
-        if(!envUsdAssetTime.empty()) {
-            query += "&time=" + envUsdAssetTime;
-        }
-
-        //turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using ala usd resolver for file path: " + query);
-        return m_turretClient.resolve_name(query);
+    const auto path = ArDefaultResolver::_Resolve(assetPath);
+    if(path){
+        return path;
     }
-    else {
-        //turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using default resolver for file path: " + path);
-        return ArDefaultResolver::ResolveWithAssetInfo(path, assetInfo);
+
+    // Check for USD_ASSET_TIME env var
+    const std::string envUsdAssetTime = TfGetenv("USD_ASSET_TIME");
+
+    // If time var exists, append asset time to query
+    if(!envUsdAssetTime.empty()) {
+        query += "&time=" + envUsdAssetTime;
     }
+
+    //turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using ala usd resolver for file path: " + query);
+    return ArResolvedPath(m_turretClient.resolve_name(query));
 }
 
-void TurretResolver::UpdateAssetInfo(
-    const std::string& identifier,
-    const std::string& filePath,
-    const std::string& fileVersion,
-    ArAssetInfo* resolveInfo) {
-    ArDefaultResolver::UpdateAssetInfo(identifier, filePath, fileVersion, resolveInfo);
+ArTimestamp TurretResolver::_GetModificationTimestamp(
+    const std::string& assetPath,
+    const ArResolvedPath& resolvedPath) const{
+    return ArDefaultResolver::_GetModificationTimestamp(assetPath, resolvedPath);
 }
 
-VtValue TurretResolver::GetModificationTimestamp(
-    const std::string& path,
-    const std::string& resolvedPath) {
-    return ArDefaultResolver::GetModificationTimestamp(path, resolvedPath);
+ArAssetInfo TurretResolver::_GetAssetInfo(const std::string& assetPath,
+            const ArResolvedPath& resolvedPath) const {
+            return ArDefaultResolver::_GetAssetInfo(assetPath,resolvedPath);
 }
 
-bool TurretResolver::FetchToLocalResolvedPath(
-    const std::string& path,
-    const std::string& resolvedPath) {
-    return true;
-
-}
-
-std::string TurretResolver::GetExtension(const std::string& path) {
-    if(m_turretClient.matches_schema(path)) {
-        return "usd";
-    }
-    return ArDefaultResolver::GetExtension(path);
+std::string TurretResolver::_GetExtension(const std::string& assetPath) const {
+    return "usd";
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE
