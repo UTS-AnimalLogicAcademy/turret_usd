@@ -51,23 +51,24 @@ TurretResolver::~TurretResolver() {
 }
 
 ArResolvedPath TurretResolver::_Resolve(const std::string& assetPath) const{
-    std::string query = assetPath;
+    
+    if(m_turretClient.matches_schema(assetPath)){
+        std::string query = assetPath;
 
-    const auto path = ArDefaultResolver::_Resolve(assetPath);
-    if(path){
-        return path;
+        // Check for USD_ASSET_TIME env var
+        const std::string envUsdAssetTime = TfGetenv("USD_ASSET_TIME");
+
+        // If time var exists, append asset time to query
+        if(!envUsdAssetTime.empty()) {
+            query += "&time=" + envUsdAssetTime;
+        }
+
+        // turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using ala usd resolver for file path: " + query);
+        return ArResolvedPath(m_turretClient.resolve_name(query));
     }
-
-    // Check for USD_ASSET_TIME env var
-    const std::string envUsdAssetTime = TfGetenv("USD_ASSET_TIME");
-
-    // If time var exists, append asset time to query
-    if(!envUsdAssetTime.empty()) {
-        query += "&time=" + envUsdAssetTime;
+    else {
+        return ArDefaultResolver::_Resolve(assetPath);
     }
-
-    //turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using ala usd resolver for file path: " + query);
-    return ArResolvedPath(m_turretClient.resolve_name(query));
 }
 
 ArTimestamp TurretResolver::_GetModificationTimestamp(
