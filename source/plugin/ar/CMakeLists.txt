@@ -61,16 +61,26 @@ elseif(${USD_LIB_VARIANT} STREQUAL "MV")
 
 
 elseif(${USD_LIB_VARIANT} STREQUAL "NUKE")
-    message("-- Building turret-usd for Nuke USD libs")
-    set(TURRET_USD_LIB_DIR $ENV{NUKE_LOCATION})
-    set(TURRET_USD_INC_DIR $ENV{REZ_NUKE_ROOT}/include)
-    set(TURRET_USD_LIBS
-            arch
-            tf
-            plug
-            vt
-            ar
-            )
+            message("-- Building turret-usd for Nuke USD libs")
+        set(TURRET_USD_LIB_DIR $ENV{NUKE_LOCATION})
+        set(TURRET_USD_INC_DIR $ENV{REZ_NUKE_ROOT}/include)
+    if($ENV{REZ_NUKE_MAJOR_VERSION} GREATER 13)
+        set(TURRET_USD_LIBS
+                fnarch
+                fntf
+                fnplug
+                fnvt
+                fnar
+                )
+    else()
+        set(TURRET_USD_LIBS
+                arch
+                tf
+                plug
+                vt
+                ar
+                )
+    endif()
 
 elseif(${USD_LIB_VARIANT} STREQUAL "MAYA")
     message("-- Building turret-usd for Maya USD libs")
