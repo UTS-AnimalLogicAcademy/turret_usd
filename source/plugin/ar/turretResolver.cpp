@@ -83,7 +83,12 @@ ArAssetInfo TurretResolver::_GetAssetInfo(const std::string& assetPath,
 }
 
 std::string TurretResolver::_GetExtension(const std::string& assetPath) const {
-    return "usd";
+    if(m_turretClient.matches_schema(assetPath)){
+        return "usd";
+    }
+    else{
+        return ArDefaultResolver::_GetExtension(assetPath);
+    }
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE
