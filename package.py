@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '2.4.1'
+version = '2.4.2'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -16,19 +16,20 @@ requires = [
 ]
 
 private_build_requires = [
-    'cmake-3',
+    'cmake-3.16',
     'devtoolset-9'
 ]
 
 variants = [
-    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.80', 'usd-23.08', '!usd_monolithic', '!katana', '!nuke', '!maya', '!houdini', '!blender'], #usd-23.08 standalone
-    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.80', 'usd_monolithic-23.08', '!usd', '!houdini', '!katana', '!maya', '!nuke'], #USD Monolithic 23.08 / Blender 3.6
-    ['platform-linux', 'arch-x86_64', 'jinja-2', 'tbb-2020.3', 'boost-1.72', 'python-3.9', 'houdini-19.5.805', '!katana', '!nuke', '!maya', '!blender'], #houdini 19.5.640
-    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.72', 'python-3.10', 'houdini-20.0.653', '!katana', '!nuke', '!maya', '!blender'], #houdini 20.0.590
-    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.82', 'python-3.10', 'houdini-20.5.207', '!katana', '!nuke', '!maya', '!blender'], #houdini 20.5.207 py3.10
-    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb_katana-2020.3', 'boost_katana-1.76', 'python-3.9', 'katana-6.0', '!houdini', '!nuke', '!maya', '!blender'], #Katana 6
-    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb_katana-2020.3', 'boost_katana-1.76', 'python-3.9', 'katana-6.5', '!houdini', '!nuke', '!maya', '!blender'], #Katana 6.5
-    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.76', 'python-3.9', 'nuke-14.1', '!houdini', '!katana', '!maya', '!blender'], #Nuke 14.1
+    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.80', 'usd-23.08', '!usd_monolithic', '!mari', '!katana', '!nuke', '!maya', '!houdini', '!blender'], #usd-23.08 standalone
+    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.80', 'usd_monolithic-23.08', '!usd', '!mari', '!houdini', '!katana', '!maya', '!nuke'], #USD Monolithic 23.08 / Blender 3.6
+    ['platform-linux', 'arch-x86_64', 'jinja-2', 'tbb-2020.3', 'boost-1.72', 'python-3.9', 'houdini-19.5.805', '!mari', '!katana', '!nuke', '!maya', '!blender'], #houdini 19.5.640
+    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.72', 'python-3.10', 'houdini-20.0.653', '!mari', '!katana', '!nuke', '!maya', '!blender'], #houdini 20.0.590
+    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.82', 'python-3.10', 'houdini-20.5.207', '!mari', '!katana', '!nuke', '!maya', '!blender'], #houdini 20.5.207 py3.10
+    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb_katana-2020.3', 'boost_katana-1.76', 'python-3.9', 'katana-6.0', '!mari', '!houdini', '!nuke', '!maya', '!blender'], #Katana 6
+    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb_katana-2020.3', 'boost_katana-1.76', 'python-3.9', 'katana-6.5', '!mari', '!houdini', '!nuke', '!maya', '!blender'], #Katana 6.5
+    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.76', 'python-3.9', 'nuke-14.1', '!mari', '!houdini', '!katana', '!maya', '!blender'], #Nuke 14.1
+    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb_katana-2020.3', 'boost_katana-1.76', 'mari-6', 'python-3.9', '!nuke', '!houdini', '!katana', '!maya', '!blender'], #Mari 6
     
 
 ]

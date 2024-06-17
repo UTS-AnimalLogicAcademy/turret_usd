@@ -51,6 +51,10 @@ elseif(DEFINED ENV{USE_NUKE_USD})
 
 elseif(DEFINED ENV{REZ_USD_MONOLITHIC_ROOT})
     set_option(USD_LIB_VARIANT PXR_MONOLITHIC)
+
+elseif(DEFINED ENV{USE_MARI_USD})
+    set_option(USD_LIB_VARIANT MARI)
+
 else()
     set_option(USD_LIB_VARIANT PXR)
 endif()
