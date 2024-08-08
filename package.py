@@ -14,6 +14,7 @@ requires = [
     'PyOpenGL',
     'jemalloc-4',
     'jinja-2',
+    'os-RedHatEnterprise-8+'
 ]
 
 private_build_requires = [
