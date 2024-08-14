@@ -35,7 +35,14 @@ set(PXR_PYTHON_SHEBANG "${PYTHON_EXECUTABLE}"
 # build files readable.
 include(CXXDefaults)
 add_definitions(${_PXR_CXX_DEFINITIONS})
-set(CMAKE_CXX_FLAGS "${_PXR_CXX_FLAGS} -D_GLIBCXX_USE_CXX11_ABI=0 ${CMAKE_CXX_FLAGS}")
+
+if(DEFINED ENV{CXX11_ABI_IGNORE})
+        set(CMAKE_CXX_FLAGS "${_PXR_CXX_FLAGS} -D_GLIBCXX_USE_CXX11_ABI=0 ${CMAKE_CXX_FLAGS}")
+        message(INFO " CXX11_ABI_IGNORE set. Ignoring CXX11 flags.")
+else()
+        set(CMAKE_CXX_FLAGS "${_PXR_CXX_FLAGS} ${CMAKE_CXX_FLAGS}")
+endif(DEFINED ENV{CXX11_ABI_IGNORE})
+
 
 include(Public)
 
