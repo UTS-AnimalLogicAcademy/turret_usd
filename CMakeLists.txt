@@ -55,6 +55,9 @@ elseif(DEFINED ENV{REZ_USD_MONOLITHIC_ROOT})
 elseif(DEFINED ENV{USE_MARI_USD})
     set_option(USD_LIB_VARIANT MARI)
 
+elseif(DEFINED ENV{USE_BLENDER_USD})
+    set_option(USD_LIB_VARIANT BLENDER)
+
 else()
     set_option(USD_LIB_VARIANT PXR)
 endif()
@@ -71,7 +74,6 @@ if(UNIX)
             set_option(PXR_MALLOC_LIBRARY $ENV{REZ_JEMALLOC_ROOT}/lib/libjemalloc.so)
         endif()
 endif(UNIX)
-
 # boost
 set_option(BOOST_ROOT "$ENV{REZ_BOOST_ROOT}")
 

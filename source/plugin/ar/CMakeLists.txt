@@ -116,6 +116,11 @@ elseif(${USD_LIB_VARIANT} STREQUAL "MAYA")
                 ar
                 )
     endif()
+elseif(${USD_LIB_VARIANT} STREQUAL "BLENDER")
+message("-- Building turret-usd for Blender Monolithic USD libs")
+set(TURRET_USD_LIB_DIR $ENV{REZ_USD_MONOLITHIC_BLENDER_ROOT}/lib)
+set(TURRET_USD_INC_DIR $ENV{REZ_USD_MONOLITHIC_BLENDER_ROOT}/include)
+set(TURRET_USD_LIBS usd_ms )
 
 elseif(${USD_LIB_VARIANT} STREQUAL "PXR")
 if($ENV{REZ_USD_MAJOR_VERSION} GREATER_EQUAL 21)
