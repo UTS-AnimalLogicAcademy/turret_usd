@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '2.4.8'
+version = '2.4.9'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -25,7 +25,7 @@ variants = [
     ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.80', 'usd-24.08','jemalloc-4', '!usd_monolithic', '!mari', '!katana', '!nuke', '!maya', '!houdini', '!blender'], #usd-23.08 standalone
     ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.82', 'usd_monolithic_blender-24.05','jemalloc-4', '!usd', '!mari', '!houdini', '!katana', '!maya', '!nuke'], #Blender 4.2
     ['platform-linux', 'arch-x86_64', 'jinja-2', 'tbb-2020.3', 'boost-1.72', 'python-3.9', 'houdini-19.5.805', '!mari', '!katana', '!nuke', '!maya', '!blender'], #houdini 19.5.640
-    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.72', 'python-3.10', 'houdini-20.0.653', '!mari', '!katana', '!nuke', '!maya', '!blender'], #houdini 20.0.590
+    ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.72', 'python-3.10', 'houdini-20.0.751', '!mari', '!katana', '!nuke', '!maya', '!blender'], #houdini 20.0.590
     ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb-2020.3', 'boost-1.82', 'python-3.10', 'houdini-20.5.207', '!mari', '!katana', '!nuke', '!maya', '!blender'], #houdini 20.5.207 py3.10
     ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb_katana-2020.3', 'boost_katana-1.76','jemalloc-4', 'python-3.9', 'katana-6.0', '!mari', '!houdini', '!nuke', '!maya', '!blender'], #Katana 6
     ['platform-linux', 'arch-x86_64', 'jinja-3', 'tbb_katana-2020.3', 'boost_katana-1.76','jemalloc-4', 'python-3.9', 'katana-6.5', '!mari', '!houdini', '!nuke', '!maya', '!blender'], #Katana 6.5
