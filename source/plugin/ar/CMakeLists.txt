@@ -91,17 +91,32 @@ elseif(${USD_LIB_VARIANT} STREQUAL "NUKE")
     endif()
 
 elseif(${USD_LIB_VARIANT} STREQUAL "MARI")
-message("-- Building turret-usd for Mari USD libs")
-set(TURRET_USD_LIB_DIR $ENV{MARI_LOCATION}/3rdParty/lib)
-set(TURRET_USD_INC_DIR /opt/Foundry/Katana6.0v1/external/FnUSD/include)
+    if($ENV{REZ_MARI_MAJOR_VERSION} GREATER 6)
+    message("-- Building turret-usd for Mari USD libs")
+    set(TURRET_USD_LIB_DIR $ENV{MARI_LOCATION}/3rdParty/lib)
+    set(TURRET_USD_INC_DIR /opt/Foundry/Katana7.0v4/external/FnUSD/include)
 
-set(TURRET_USD_LIBS
-        fnarch
-        fntf
-        fnplug
-        fnvt
-        fnar
-        )
+    set(TURRET_USD_LIBS
+            fnarch
+            fntf
+            fnplug
+            fnvt
+            fnar
+            )
+
+    elseif($ENV{REZ_MARI_MAJOR_VERSION} GREATER 5)
+    message("-- Building turret-usd for Mari USD libs")
+    set(TURRET_USD_LIB_DIR $ENV{MARI_LOCATION}/3rdParty/lib)
+    set(TURRET_USD_INC_DIR /opt/Foundry/Katana6.0v1/external/FnUSD/include)
+
+    set(TURRET_USD_LIBS
+            fnarch
+            fntf
+            fnplug
+            fnvt
+            fnar
+            )
+    endif()
 
 elseif(${USD_LIB_VARIANT} STREQUAL "MAYA")
     message("-- Building turret-usd for Maya USD libs")
