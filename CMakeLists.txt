@@ -68,7 +68,7 @@ set_option(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/source)
 
 if(UNIX)
         # jemalloc
-        if(${USD_LIB_VARIANT} STREQUAL "HDK_MONOLITHIC")
+        if(${USD_LIB_VARIANT} MATCHES "HDK.*")
             set_option(PXR_MALLOC_LIBRARY $ENV{HOUDINI_LOCATION}/../dsolib/libjemalloc.so)
         else()
             set_option(PXR_MALLOC_LIBRARY $ENV{REZ_JEMALLOC_ROOT}/lib/libjemalloc.so)
