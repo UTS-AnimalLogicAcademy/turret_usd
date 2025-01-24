@@ -4,10 +4,10 @@ At present, Linux is our primary supported build platform. There is now basic wi
 ## Requirements
  * turret_lib
  * libzmq-4.2.3
- * USD-19.01
+ * USD-24.08 - or any other version that is built with AR 2.0
    * TBB (Same version as USD)
    * Boost (Same version as USD)
- * cmake-3.2
+ * cmake-3.28
 
 Other versions may work but are untested.  
 
