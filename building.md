@@ -4,12 +4,13 @@ At present, Linux is our primary supported build platform. There is now basic wi
 ## Requirements
  * turret_lib
  * libzmq-4.2.3
- * USD-24.08 - or any other version that is built with AR 2.0
+ * USD-24.08 - or any other version up to 24.08 that is built with AR 2.0
    * TBB (Same version as USD)
    * Boost (Same version as USD)
  * cmake-3.28
 
 Other versions may work but are untested.  
+To build with USD AR 1.0, checkout the ar-1.0 branch.
 
 ### Linux
 We use [rez](https://github.com/nerdvegas/rez) as a build tool, which handles variants nicely. In package.py we specify the build variants, which defines packages that will be resolved at build time. In order to automatically select the USD libary to link turret_usd against, our `usd_houdini_hdk` package exports the env var `$USE_HDK_USD=1`, which if present when building, will cause cmake to set the cmake variable `USD_LIB_VARIANT` to `HDK` (the default is `PXR`).  
