@@ -10,7 +10,7 @@ At present, Linux is our primary supported build platform. There is now basic wi
  * cmake-3.28
 
 Other versions may work but are untested.  
-To build with USD AR 1.0, checkout the ar-1.0 branch.
+NOTE: To build older versions of USD with USD AR 1.0, checkout the ar-1.0 branch.
 
 ### Linux
 We use [rez](https://github.com/nerdvegas/rez) as a build tool, which handles variants nicely. In package.py we specify the build variants, which defines packages that will be resolved at build time. In order to automatically select the USD libary to link turret_usd against, our `usd_houdini_hdk` package exports the env var `$USE_HDK_USD=1`, which if present when building, will cause cmake to set the cmake variable `USD_LIB_VARIANT` to `HDK` (the default is `PXR`).  
