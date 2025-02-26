@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '2.6.8'
+version = '2.6.9'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -46,3 +46,7 @@ def commands():
     env.KATANA_RESOURCES.append('{root}/plugin')
     env.PXR_PLUGINPATH_NAME.append('{root}/plugin/usd/')
     env.FNPXR_PLUGINPATH.append('{root}/plugin/usd/')
+    
+    # We do not seem to see much benefit beyond 4 threads, 
+    # and uncapping actually hinders performance due to CPU throttling.
+    env.PXR_WORK_THREAD_LIMIT.set(4)
