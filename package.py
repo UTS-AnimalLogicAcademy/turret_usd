@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '2.6.9'
+version = '2.6.10'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -47,6 +47,6 @@ def commands():
     env.PXR_PLUGINPATH_NAME.append('{root}/plugin/usd/')
     env.FNPXR_PLUGINPATH.append('{root}/plugin/usd/')
     
-    # We do not seem to see much benefit beyond 4 threads, 
+    # We do not seem to see much benefit beyond 12 threads with the multiprocessed turret server, 
     # and uncapping actually hinders performance due to CPU throttling.
-    env.PXR_WORK_THREAD_LIMIT.set(4)
+    env.PXR_WORK_THREAD_LIMIT.set(12)
