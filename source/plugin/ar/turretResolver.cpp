@@ -42,12 +42,20 @@ PXR_NAMESPACE_OPEN_SCOPE
 
 AR_DEFINE_RESOLVER(TurretResolver, ArResolver);
 
-TurretResolver::TurretResolver() : ArDefaultResolver(), m_turretClient("usd") {
-    std::cout << "TURRET USD Resolver - Created Resolver\n\n";
+TurretResolver::TurretResolver() : ArDefaultResolver(), m_turretClient("usd"), m_defaultUSD(std::getenv("DEFAULT_USD")) {
+    std::cout << "TURRET USD Resolver - Created Resolver" << std::endl;
+
+    const char *suppressAssetWarningsEnv = std::getenv("TURRET_USD_SUPPRESS_ASSET_NOT_FOUND");
+    if(suppressAssetWarningsEnv && m_defaultUSD){
+        std::cout << "TURRET USD Resolver - Suppressing asset not found warnings. Will load default USD path if asset not found: " << m_defaultUSD << std::endl;
+        m_suppressAssetWarnings = true;
+    }else if(suppressAssetWarningsEnv && !m_defaultUSD){
+        std::cout << "TURRET USD Resolver - Cannot suppress asset not found warnings. DEFAULT_USD env var not set." << std::endl;
+    }
 }
 
 TurretResolver::~TurretResolver() {
-    std::cout << "TURRET USD Resolver - Destroyed Resolver\n\n";
+    std::cout << "TURRET USD Resolver - Destroyed Resolver" << std::endl;
 }
 
 ArResolvedPath TurretResolver::_Resolve(const std::string& assetPath) const{
@@ -63,8 +71,23 @@ ArResolvedPath TurretResolver::_Resolve(const std::string& assetPath) const{
             query += "&time=" + envUsdAssetTime;
         }
 
+        std::string resolvedPath = m_turretClient.resolve_name(query);
+
+        if(resolvedPath == "NOT_FOUND") {
+            if(m_suppressAssetWarnings) {
+
+                // Return default USD path to avoid spamming logs with warnings
+                return ArResolvedPath(m_defaultUSD);
+            }
+            else {
+                
+                // Return empty resolved path (will generate warning)
+                return ArResolvedPath();
+            }
+        }
+
         // turret_client::turretLogger::Instance()->Log("TURRET USD Resolver - using ala usd resolver for file path: " + query);
-        return ArResolvedPath(m_turretClient.resolve_name(query));
+        return ArResolvedPath(resolvedPath);
     }
     else {
         return ArDefaultResolver::_Resolve(assetPath);

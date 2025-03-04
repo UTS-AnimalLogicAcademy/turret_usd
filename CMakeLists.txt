@@ -86,3 +86,11 @@ set_option(PXR_BUILD_IMAGING OFF)
 set_option(PXR_BUILD_USD_IMAGING OFF)
 
 add_subdirectory("source")
+
+include(RezBuild)
+
+file(GLOB_RECURSE resource_files "resources/*")
+rez_install_files(
+    ${resource_files}
+    DESTINATION .
+)

@@ -2,7 +2,7 @@
 
 name = 'turret_usd'
 
-version = '2.6.10'
+version = '2.6.11'
 
 authors = [ 'ben.skinner',
             'daniel.flood',
@@ -46,6 +46,10 @@ def commands():
     env.KATANA_RESOURCES.append('{root}/plugin')
     env.PXR_PLUGINPATH_NAME.append('{root}/plugin/usd/')
     env.FNPXR_PLUGINPATH.append('{root}/plugin/usd/')
+    
+    env.DEFAULT_USD.set('{root}/resources/DefaultUSD.usda')
+    env.TURRET_USD_SUPPRESS_ASSET_NOT_FOUND.set('1')
+    env.TURRET_DO_LOG.set('0')
     
     # We do not seem to see much benefit beyond 12 threads with the multiprocessed turret server, 
     # and uncapping actually hinders performance due to CPU throttling.

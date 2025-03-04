@@ -55,6 +55,8 @@ class TurretResolver
 
     private:
         mutable turret_client::turretClient m_turretClient;
+        bool m_suppressAssetWarnings = false;
+        const char *m_defaultUSD;
 };
 
 PXR_NAMESPACE_CLOSE_SCOPE
