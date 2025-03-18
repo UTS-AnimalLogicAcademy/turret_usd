@@ -91,11 +91,10 @@ elseif(${USD_LIB_VARIANT} STREQUAL "NUKE")
     endif()
 
 elseif(${USD_LIB_VARIANT} STREQUAL "MARI")
-    if($ENV{REZ_MARI_MAJOR_VERSION} GREATER 6)
+    
     message("-- Building turret-usd for Mari USD libs")
     set(TURRET_USD_LIB_DIR $ENV{MARI_LOCATION}/3rdParty/lib)
-    set(TURRET_USD_INC_DIR /opt/Foundry/Katana7.0v4/external/FnUSD/include)
-
+    set(TURRET_USD_INC_DIR $ENV{MARI_FNUSD_INCLUDE_DIR})
     set(TURRET_USD_LIBS
             fnarch
             fntf
@@ -103,25 +102,11 @@ elseif(${USD_LIB_VARIANT} STREQUAL "MARI")
             fnvt
             fnar
             )
-
-    elseif($ENV{REZ_MARI_MAJOR_VERSION} GREATER 5)
-    message("-- Building turret-usd for Mari USD libs")
-    set(TURRET_USD_LIB_DIR $ENV{MARI_LOCATION}/3rdParty/lib)
-    set(TURRET_USD_INC_DIR /opt/Foundry/Katana6.0v1/external/FnUSD/include)
-
-    set(TURRET_USD_LIBS
-            fnarch
-            fntf
-            fnplug
-            fnvt
-            fnar
-            )
-    endif()
 
 elseif(${USD_LIB_VARIANT} STREQUAL "MAYA")
     message("-- Building turret-usd for Maya USD libs")
     set(TURRET_USD_LIB_DIR $ENV{MAYA_USD_ROOT}/mayausd/USD/lib)
-    set(TURRET_USD_INC_DIR $ENV{REZ_MAYA_ROOT}/include)
+    set(TURRET_USD_INC_DIR $ENV{MAYA_USD_INCLUDE_DIR})
     if($ENV{REZ_MAYA_MAJOR_VERSION} GREATER 2023)
         set(TURRET_USD_LIBS
                 usd_arch
@@ -146,10 +131,11 @@ set(TURRET_USD_INC_DIR $ENV{REZ_USD_MONOLITHIC_BLENDER_ROOT}/include)
 set(TURRET_USD_LIBS usd_ms )
 
 elseif(${USD_LIB_VARIANT} STREQUAL "PXR")
-if($ENV{REZ_USD_MAJOR_VERSION} GREATER_EQUAL 21)
+
 message("-- Building turret-usd for Pixar USD libs")
 set(TURRET_USD_LIB_DIR $ENV{REZ_USD_ROOT}/lib)
 set(TURRET_USD_INC_DIR $ENV{REZ_USD_ROOT}/include)
+if($ENV{REZ_USD_MAJOR_VERSION} GREATER_EQUAL 21)
 set(TURRET_USD_LIBS
     usd_arch
     usd_tf
@@ -158,9 +144,6 @@ set(TURRET_USD_LIBS
     usd_ar
 )
 else()
-message("-- Building turret-usd for Pixar USD libs")
-set(TURRET_USD_LIB_DIR $ENV{REZ_USD_ROOT}/lib)
-set(TURRET_USD_INC_DIR $ENV{REZ_USD_ROOT}/include)
 set(TURRET_USD_LIBS
     arch
     tf

@@ -39,10 +39,10 @@ set(PXR_THREAD_LIBS "${CMAKE_THREAD_LIBS_INIT}")
 
 if(PXR_ENABLE_PYTHON_SUPPORT)
     # --Python.
-    if(PXR_USE_PYTHON_3)
+    if(DEFINED REQUIRED_PY_VERSION)
         find_package(Python ${REQUIRED_PY_VERSION} COMPONENTS Interpreter Development REQUIRED)
     else()
-        find_package(Python ${REQUIRED_PY_VERSION} COMPONENTS Interpreter Development REQUIRED)
+        find_package(Python COMPONENTS Interpreter Development REQUIRED)
     endif()
 
     find_package(Boost

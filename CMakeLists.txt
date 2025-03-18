@@ -1,13 +1,13 @@
-cmake_minimum_required (VERSION 3.2)
+cmake_minimum_required (VERSION 3.12)
 
-set(Python_ROOT_DIR $ENV{REZ_PYTHON_ROOT}/miniconda$ENV{REZ_PYTHON_MAJOR_VERSION})
-set(Python_INCLUDE_DIR "$ENV{PYTHON_INCLUDE_DIRS}")
-#set(Python_LIBRARY "$ENV{PYTHON_LIBRARIES}")
-
-set(REQUIRED_PY_VERSION $ENV{REZ_PYTHON_MAJOR_VERSION}.$ENV{REZ_PYTHON_MINOR_VERSION})
-
-include(CMakePrintHelpers)
-cmake_print_variables(Python_ROOT_DIR)
+if(DEFINED ENV{REZ_PYTHON_ROOT})
+    set(Python_ROOT_DIR $ENV{REZ_PYTHON_ROOT}/miniconda$ENV{REZ_PYTHON_MAJOR_VERSION})
+    set(Python_INCLUDE_DIR "$ENV{PYTHON_INCLUDE_DIRS}")
+    #set(Python_LIBRARY "$ENV{PYTHON_LIBRARIES}")
+    set(REQUIRED_PY_VERSION $ENV{REZ_PYTHON_MAJOR_VERSION}.$ENV{REZ_PYTHON_MINOR_VERSION})
+    include(CMakePrintHelpers)
+    cmake_print_variables(Python_ROOT_DIR)
+endif()
 
 if(WIN32)
         add_definitions( -DBOOST_ALL_NO_LIB )
