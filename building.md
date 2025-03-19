@@ -52,6 +52,11 @@ We use [rez](https://github.com/nerdvegas/rez) as a build tool, which handles va
       * Nuke USD versions can be found here: [https://learn.foundry.com/nuke/15.1v1/content/misc/studio_third_party_libraries.html](https://learn.foundry.com/nuke/15.1v1/content/misc/studio_third_party_libraries.html)
         * The version number in the above URL can be changed to find your preferred version of Nuke.
         * You may also be able to use the FnUSD headers from an installed version of Katana with the same USD version as your preferred Nuke install.
+        * Katana/Nuke's USD version can also be found by opening Katana/Nuke and running the following Python script:
+          * ```
+            from fnpxr import Usd
+            print(Usd.GetVersion())
+            ```
   * Requires `$NUKE_USD_LIB_DIR` to point to the directory of the FnUSD libraries within the preferred Nuke install. (e.g. `/opt/Foundry/Nuke15.1v2/FnUSD/lib/`)
     * Sets `TURRET_USD_INC_DIR` to `$ENV{NUKE_USD_INCLUDE_DIR}`
     * Sets `TURRET_USD_LIB_DIR` to `$ENV{NUKE_USD_LIB_DIR}`
@@ -64,6 +69,11 @@ We use [rez](https://github.com/nerdvegas/rez) as a build tool, which handles va
       * Mari USD versions can be found here: [https://learn.foundry.com/mari/6.0/Content/user_guide/appendix_c/third_party_licenses.html](https://learn.foundry.com/mari/6.0/Content/user_guide/appendix_c/third_party_licenses.html)
       * Katana USD versions can be found here: [https://learn.foundry.com/katana/4.5/dev-guide/ExternalSoftware.html](https://learn.foundry.com/katana/4.5/dev-guide/ExternalSoftware.html)
         * The version numbers in the above URLs can be changed to find your preferred versions of Mari/Katana.
+        * Mari/Katana's USD version can also be found by opening Mari/Katana and running the following Python script:
+          * ```
+            from fnpxr import Usd
+            print(Usd.GetVersion())
+            ```
   * Requires `$MARI_LOCATION` to point to the root directory of the preferred Mari install. (e.g. `/opt/Foundry/Mari6.0v2`)
   * Requires `$MARI_FNUSD_INCLUDE_DIR` to point to the directory of the FnUSD headers within a Katana install with the same USD version as the preferred Mari version. (e.g. `/opt/Foundry/Katana6.0v1/external/FnUSD/include`)
     * Sets `TURRET_USD_INC_DIR` to `$ENV{MARI_FNUSD_INCLUDE_DIR}`
@@ -74,12 +84,31 @@ We use [rez](https://github.com/nerdvegas/rez) as a build tool, which handles va
     * **Important**: Unfortunately, Maya USD's install does not come with the headers for USD, and therefore you must provide the headers from your own build of the same version of USD.
       * Building USD: [https://github.com/PixarAnimationStudios/OpenUSD](https://github.com/PixarAnimationStudios/OpenUSD)
       * The USD version for which Maya USD is built for different Maya versions can be found here: [https://github.com/Autodesk/maya-usd/releases](https://github.com/Autodesk/maya-usd/releases)
+      * Maya's USD version can also be found by opening Maya and running the following Python script:
+        * ```
+            from pxr import Usd
+            print(Usd.GetVersion())
+            ```
   * Requires `$MAYA_USD_INCLUDE_DIR` to point to the directory of the USD headers within your USD install. (e.g. `~/usd/23.11/include`)
   * Requires `$MAYA_USD_ROOT` to point to the root directory of the Maya USD installed for your preferred version Maya. (e.g. `/usr/autodesk/mayausd/maya2025/0.28.0_202404152327-48d2ddb` for Maya 2025 and Maya USD 0.28.0)
     * Sets `TURRET_USD_INC_DIR` to `$$ENV{MAYA_USD_INCLUDE_DIR}`
     * Sets `TURRET_USD_LIB_DIR` to `$ENV{MAYA_USD_ROOT}/mayausd/USD/lib`
   * Requires `$REZ_MAYA_MAJOR_VERSION` to be set to the **major** version of the preferred Maya install. (e.g. Maya 2025.3 would have `$REZ_MAYA_MAJOR_VERSION` set to `2025`)
     * Sets `TURRET_USD_LIBS` to `usd_{usd_lib_name}` or `{usd_lib_name}`, depending on the Maya major version.
+* #### `$USE_BLENDER_USD=1`
+  * Sets `USD_LIB_VARIANT` to `BLENDER`. Designed to set up turret_usd to build with Blender's internal monolithic USD lib.
+    * **Important**: Unfortunately, Blender's install does not come with the headers for USD, and therefore you must provide the headers from your own monolithic build of the same version of USD.
+      * Building USD: [https://github.com/PixarAnimationStudios/OpenUSD](https://github.com/PixarAnimationStudios/OpenUSD)
+      * Blender's USD version can be found by opening Blender and running the following Python script:
+        * ```
+          from pxr import Usd
+          print(Usd.GetVersion())
+          ```
+  * Requires `$BLENDER_USD_MONOLITHIC_INCLUDE_DIR` to point to the directory of the USD headers within your monolithic USD install. (e.g. `~/usd/23.11/include`)
+  * Requires `$BLENDER_USD_MONOLITHIC_LIB_DIR` to point to the directory of the USD libraries within the preferred Blender install. (e.g. `~/blender/4.3.2/lib`)
+    * Sets `TURRET_USD_INC_DIR` to `$$ENV{BLENDER_USD_MONOLITHIC_INCLUDE_DIR}`
+    * Sets `TURRET_USD_LIB_DIR` to `$ENV{BLENDER_USD_MONOLITHIC_LIB_DIR}/mayausd/USD/lib`
+  * Sets `TURRET_USD_LIBS` to `usd_ms`.
  
 
 #### Rez
