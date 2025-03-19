@@ -15,7 +15,7 @@ NOTE: To build older versions of USD with USD AR 1.0, checkout the ar-1.0 branch
 ### Linux
 We use [rez](https://github.com/nerdvegas/rez) as a build tool, which handles variants nicely. In package.py we specify the build variants, which defines packages that will be resolved at build time. In order to automatically select the USD libary to link turret_usd against, you can specify one of several environment variables in the vein of `$USE_{PACKAGE}_USD`. The currently supported options are as follows:
 * #### Default - PXR USD (OpenUSD)
-  * By default, `USD_LIB_VARAITN` is set to `PXR`. This sets up turret_usd to build with the Pixar USD (OpenUSD) libs.
+  * By default, `USD_LIB_VARIANT` is set to `PXR`. This sets up turret_usd to build with the Pixar USD (OpenUSD) libs.
   * Requires `$REZ_USD_ROOT` to point to the root directory of the USD install. (e.g. `~/usd/23.11`)
     * Sets `TURRET_USD_INC_DIR` to `$ENV{REZ_USD_ROOT}/include`
     * Sets `TURRET_USD_LIB_DIR` to `$ENV{REZ_USD_ROOT}/lib`
